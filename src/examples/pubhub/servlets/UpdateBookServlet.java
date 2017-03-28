@@ -26,6 +26,7 @@ public class UpdateBookServlet extends HttpServlet {
 		boolean isSuccess= false;
 		String isbn13 = request.getParameter("isbn13");
 		
+		// TODO Modify to handle a list of tags
 		BookDAO dao = DAOUtilities.getBookDAO();
 		Book book = dao.getBookByISBN(isbn13);
 		

@@ -35,7 +35,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 				
 				// Each variable in our Book object maps to a column in a row from result
 				tag.setTagName(resultSet.getString("tag_name"));
-				tag.setIsbn13(resultSet.getString("isbn_13"));
+				tag.setIsbn13(resultSet.getString("isbn13"));
 				
 				// add book to list
 				bookTags.add(tag);
@@ -73,7 +73,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 				BookTags tag = new BookTags();
 				
 				tag.setBookTagsId(rs.getInt("booktags_id"));
-				tag.setIsbn13(rs.getString("isbn_13"));
+				tag.setIsbn13(rs.getString("isbn13"));
 				tag.setTagName(rs.getString("tag_name"));
 				
 				bookTags.add(tag);
@@ -99,7 +99,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "SELECT * FROM book_tags WHERE isbn_13 = ?";
+			String sql = "SELECT * FROM book_tags WHERE isbn13 = ?";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, isbn);
@@ -107,11 +107,11 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
-				BookTags tag = new BookTags();
+				bookTags = new BookTags();
 				
-				tag.setBookTagsId(rs.getInt("booktags_id"));
-				tag.setIsbn13(rs.getString("isbn_13"));
-				tag.setTagName(rs.getString("tag_name"));
+				bookTags.setBookTagsId(rs.getInt("booktags_id"));
+				bookTags.setIsbn13(rs.getString("isbn13"));
+				bookTags.setTagName(rs.getString("tag_name"));
 				
 			}
 			
@@ -163,7 +163,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "UPDATE book_tags SET tag_Name=? WHERE isbn_13=?";
+			String sql = "UPDATE book_tags SET tag_name=? WHERE isbn13=?";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, bookTag.getTagName());
@@ -191,7 +191,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "DELETE book_tags WHERE isbn_13 = ?";
+			String sql = "DELETE book_tags WHERE isbn13 = ?";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, isbn);

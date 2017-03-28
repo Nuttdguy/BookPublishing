@@ -20,17 +20,18 @@ public class ViewBookTagsServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
+		String isbn = request.getParameter("isbn13");
+		
 		// Grab the list of Book Tags from the Database
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
-		List<BookTags> tagList = dao.getAllBookTags();		
+		BookTags tag = dao.getBookTagByISBN(isbn);		
 		
 		// Populate the list into a variable that will be stored in the session =
-		request.getSession().setAttribute("bookTags", tagList);
+		request.getSession().setAttribute("bookTags", tag);
 		
 		// Use dispatcher, get jsp view and forward request/response to client
 		request.getRequestDispatcher("bookTagsHome.jsp").forward(request, response);
-		// TODO create bookTagsHome.jsp template
 		
-	}
+	}	
 
 }

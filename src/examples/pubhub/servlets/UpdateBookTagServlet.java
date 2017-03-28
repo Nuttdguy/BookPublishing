@@ -22,12 +22,13 @@ public class UpdateBookTagServlet extends HttpServlet {
 		boolean isSuccess = false;
 		String isbn13 = request.getParameter("isbn13");
 		
-		// Create an instance of DAOImpl
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
 		BookTags tag = dao.getBookTagByISBN(isbn13);
 		
-		if (tag != null) {
-			tag.setTagName(request.getParameter("tag_name"));
+		if (tag!= null) {
+			
+			tag.setIsbn13(request.getParameter("isbn13"));
+			tag.setTagName(request.getParameter("tagName"));
 			
 			request.setAttribute("bookTags", tag);
 			isSuccess = dao.updateBookTag(tag);
