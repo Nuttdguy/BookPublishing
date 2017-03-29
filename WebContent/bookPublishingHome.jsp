@@ -53,7 +53,8 @@
 								<input type="hidden" name="isbn13" value="${book.isbn13}">
 								<button class="btn btn-primary">Details</button>
 							</form></td>
-						<td><form action="ViewBookTags" method="get">
+						<td><form action="ViewBookTags?isbn=${book.isbn13}" method="get">
+								<input type="hidden" name="isbn13" value="${book.isbn13}">
 								<button class="btn btn-primary">View Tag</button>
 						</form></td>
 					</tr>

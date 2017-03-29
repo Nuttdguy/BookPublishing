@@ -62,13 +62,13 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 
 		return bookTags;
 	}
-
+	
 	/*------------------------------------------------------------------------------------------*/
 
 	@Override
-	public ViewBookTags getViewBookTagByISBN(String isbn) {
+	public ViewBookTags getOneViewBookTagByISBN(String isbn) {
 		
-		ViewBookTags viewBookTag = null;
+		ViewBookTags viewBookTag = null;;
 		
 		try {
 			connection = DAOUtilities.getConnection();
@@ -81,13 +81,58 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 			stmt.setString(1, isbn);		
 			ResultSet rs  = stmt.executeQuery();
 			
-			if (rs.next()) {
+			while (rs.next()) {
+				
 				viewBookTag = new ViewBookTags();
 				
 				viewBookTag.setIsbn13(rs.getString("isbn_13"));
 				viewBookTag.setAuthor(rs.getString("author"));
 				viewBookTag.setTitle(rs.getString("title"));
 				viewBookTag.setTagName(rs.getString("tag_name"));
+			}
+			rs.close();
+		} catch (SQLException sex) {
+			sex.printStackTrace();
+		} finally {
+			closeResources();
+		}
+		return viewBookTag;
+	}
+
+	/*------------------------------------------------------------------------------------------*/
+
+	@Override
+	public List<ViewBookTags> getViewBookTagByISBN(String isbn) {
+		
+		List<ViewBookTags> viewBookTag = new ArrayList<>();
+		
+		try {
+			connection = DAOUtilities.getConnection();
+			String sql = "SELECT a.isbn_13,"
+					+ "a.title,"
+					+ "a.author,"
+					+ "b.tag_name FROM books a INNER JOIN book_tags b ON a.isbn_13 = b.isbn13 WHERE a.isbn_13 = ?";
+			stmt = connection.prepareStatement(sql);
+			
+			stmt.setString(1, isbn);		
+			ResultSet rs  = stmt.executeQuery();
+			
+			while (rs.next()) {
+				ViewBookTags bookTag = new ViewBookTags();
+				
+				bookTag.setIsbn13(rs.getString("isbn_13"));
+				bookTag.setAuthor(rs.getString("author"));
+				bookTag.setTitle(rs.getString("title"));
+				bookTag.setTagName(rs.getString("tag_name"));
+				
+				viewBookTag.add(bookTag);
+				
+//				viewBookTag = new ViewBookTags();
+//				
+//				viewBookTag.setIsbn13(rs.getString("isbn_13"));
+//				viewBookTag.setAuthor(rs.getString("author"));
+//				viewBookTag.setTitle(rs.getString("title"));
+//				viewBookTag.setTagName(rs.getString("tag_name"));
 			}
 			rs.close();
 		} catch (SQLException sex) {

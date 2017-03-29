@@ -56,7 +56,7 @@
 					<button type="submit" class="btn btn-info">Update</button>
 				</div>
 				<div class="col-sm-1">
-					<div class="btn btn-danger"><a href="./ViewBookTags">Cancel</a></div>
+					<div class="btn btn-danger"><a href="./BookPublishing">Cancel</a></div>
 				</div>
 			</div>
 		</form>

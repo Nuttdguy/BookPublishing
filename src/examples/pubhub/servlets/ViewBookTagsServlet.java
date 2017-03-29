@@ -25,8 +25,9 @@ public class ViewBookTagsServlet extends HttpServlet {
 		
 		// Grab the list of Book Tags from the Database
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
-		List<ViewBookTags> tag = dao.getAllBookTags();		
-		//BookTags tag = dao.getBookTagByISBN(isbn);		
+		
+		// List<ViewBookTags> tag = dao.getAllBookTags();		
+		List<ViewBookTags> tag = dao.getViewBookTagByISBN(isbn);		
 		
 		// Populate the list into a variable that will be stored in the session =
 		request.getSession().setAttribute("ViewBookTags", tag);

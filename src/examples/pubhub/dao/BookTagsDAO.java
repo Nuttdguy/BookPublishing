@@ -8,7 +8,8 @@ import examples.pubhub.modelview.ViewBookTags;
 public interface BookTagsDAO {
 	
 	public List<ViewBookTags> getAllBookTags();
-	public ViewBookTags getViewBookTagByISBN(String isbn);
+	public ViewBookTags getOneViewBookTagByISBN(String isbn);
+	public List<ViewBookTags> getViewBookTagByISBN(String isbn);
 	
 	public List<BookTags> getBooksByTagName(String bookTag);
 	public BookTags getBookTagByISBN(String isbn);

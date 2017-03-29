@@ -2,6 +2,7 @@ package examples.pubhub.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +28,7 @@ public class UpdateBookTagServlet extends HttpServlet {
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
 		
 		// call dao, get data for isbn
-		ViewBookTags tag = dao.getViewBookTagByISBN(isbn);
+		ViewBookTags tag = dao.getOneViewBookTagByISBN(isbn);
 		
 		// set request attribute of dispatcher
 		request.setAttribute("viewBookTags", tag);
@@ -41,7 +42,7 @@ public class UpdateBookTagServlet extends HttpServlet {
 		String isbn13 = request.getParameter("isbn13");
 		
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
-		ViewBookTags tag = dao.getViewBookTagByISBN(isbn13);
+		ViewBookTags tag = dao.getOneViewBookTagByISBN(isbn13);
 		
 		if (tag!= null) {
 			

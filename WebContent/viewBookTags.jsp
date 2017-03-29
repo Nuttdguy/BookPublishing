@@ -44,10 +44,13 @@
 						</form></td>
 					</tr>
 				</c:forEach>
-			</tbody>
-			
-			
+			</tbody>		
 		</table>
+		<div class="col-sm-1">
+			<div class="btn btn-danger">
+				<a href="./BookPublishing">Cancel</a>
+			</div>
+		</div>
 
 	</div>
 </header>
