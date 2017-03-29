@@ -11,27 +11,47 @@ import javax.servlet.http.HttpServletResponse;
 
 import examples.pubhub.dao.BookTagsDAO;
 import examples.pubhub.model.BookTags;
+import examples.pubhub.modelview.ViewBookTags;
 import examples.pubhub.utilities.DAOUtilities;
 
-@WebServlet("/UpdateBookTag")
+@WebServlet("/EditBookTag")
 public class UpdateBookTagServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// get isbn from request dispatcher
+		String isbn = request.getParameter("isbn13");
+		
+		// create connection dao instance
+		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
+		
+		// call dao, get data for isbn
+		ViewBookTags tag = dao.getViewBookTagByISBN(isbn);
+		
+		// set request attribute of dispatcher
+		request.setAttribute("viewBookTags", tag);
+		
+		// get .jsp object from request dispatcher, forward request/response
+		request.getRequestDispatcher("editBookTag.jsp").forward(request, response);
+	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean isSuccess = false;
 		String isbn13 = request.getParameter("isbn13");
 		
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
-		BookTags tag = dao.getBookTagByISBN(isbn13);
+		ViewBookTags tag = dao.getViewBookTagByISBN(isbn13);
 		
 		if (tag!= null) {
 			
+			tag.setAuthor(request.getParameter("author"));
+			tag.setTitle(request.getParameter("title"));
 			tag.setIsbn13(request.getParameter("isbn13"));
 			tag.setTagName(request.getParameter("tagName"));
 			
 			request.setAttribute("bookTags", tag);
-			isSuccess = dao.updateBookTag(tag);
+			isSuccess = dao.updateViewBookTag(tag);
 		} else {
 			// couldn't find book with isbn. Update failed
 			isSuccess = false;
