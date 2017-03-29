@@ -22,15 +22,13 @@
 		<hr class="book-primary">
 
 		<form action="EditBookTag" method="post" class="form-horizontal">
-			<input type="hidden" class="form-control" id="isbn13" name="isbn13"
-				required="required" value="${viewBookTags.isbn13 }" />
+			<input type="hidden" class="form-control" id="isbn13" name="isbn13" required="required" value="${viewBookTags.isbn13 }" />
 
 			<div class="form-group">
 				<label for="author" class="col-sm-3 control-label">Author</label>
 				<div class="col-sm-5 col-sm-offset-1">
 					<input type="text" class="form-control" id="author" name="author"
-						placeholder="author" required="required"
-						value="${viewBookTags.author}">
+						placeholder="author" required="required" value="${viewBookTags.author}">
 				</div>
 			</div>
 
@@ -38,8 +36,9 @@
 				<label for="title" class="col-sm-3 control-label">Title</label>
 				<div class="col-sm-5 col-sm-offset-1">
 					<input type="text" class="form-control" id="title" name="title"
-						placeholder="title" required="required"
-						value="${viewBookTags.title}" />
+						placeholder="title" required="required" value="${viewBookTags.title}" />
+					<input type="hidden" class="form-control" id="title" name="title" 
+						required="required" value="${viewBookTags.title }" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -47,8 +46,7 @@
 					Name:</label>
 				<div class="col-sm-5 col-sm-offset-1">
 					<input type="text" class="form-control" id="tagName" name="tagName"
-						placeholder="Tag Name" required="required"
-						value="${viewBookTags.tagName}" />
+						placeholder="Tag Name" required="required" value="${viewBookTags.tagName}" />
 				</div>
 			</div>
 			<div class="form-group">

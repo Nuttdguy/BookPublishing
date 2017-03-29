@@ -46,4 +46,11 @@ public class ViewBookTags {
 		this.bookTags.setTagName(tagName);
 	}
 	
+	public int getBookTagId() {
+		return this.bookTags.getBookTagsId();
+	}
+	
+	public void setBookTagId(int id) {
+		this.bookTags.setBookTagsId(id);
+	}
 }

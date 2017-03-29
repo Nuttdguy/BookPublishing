@@ -38,8 +38,9 @@
 						<td><c:out value="${tag.title}" /></td>
 						<td><c:out value="${tag.author}" /></td>
 						<td><c:out value="${tag.tagName}" /></td>
-						<td><form action="EditBookTag?isbn13=${tag.isbn13}" method="get">
+						<td><form action="EditBookTag?title=${tag.title}" method="get">
 							<input type="hidden" name="isbn13" value="${tag.isbn13}"/>
+							<input type="hidden" name="title" value="${tag.title}">
 							<button class="btn btn-primary">Edit</button>
 						</form></td>
 					</tr>

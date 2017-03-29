@@ -21,13 +21,17 @@ public class ViewBookTagsServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
-		String isbn = request.getParameter("isbn13");
+		// TODO Change search function BY Book Name
+		// TODO Add TAG function for Single Book
+		// String isbn = request.getParameter("isbn13");
+		String title = request.getParameter("title");
 		
 		// Grab the list of Book Tags from the Database
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
 		
 		// List<ViewBookTags> tag = dao.getAllBookTags();		
-		List<ViewBookTags> tag = dao.getViewBookTagByISBN(isbn);		
+		// List<ViewBookTags> tag = dao.getViewBookTagByISBN(isbn);
+		List<ViewBookTags> tag = dao.getViewBookTagByTitle(title);
 		
 		// Populate the list into a variable that will be stored in the session =
 		request.getSession().setAttribute("ViewBookTags", tag);

@@ -22,13 +22,14 @@ public class UpdateBookTagServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get isbn from request dispatcher
-		String isbn = request.getParameter("isbn13");
+		// String isbn = request.getParameter("isbn13");
+		String title = request.getParameter("title");
 		
 		// create connection dao instance
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
 		
 		// call dao, get data for isbn
-		ViewBookTags tag = dao.getOneViewBookTagByISBN(isbn);
+		ViewBookTags tag = dao.getOneViewBookTagByTitle(title);
 		
 		// set request attribute of dispatcher
 		request.setAttribute("viewBookTags", tag);
@@ -40,8 +41,10 @@ public class UpdateBookTagServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean isSuccess = false;
 		String isbn13 = request.getParameter("isbn13");
+		String title = request.getParameter("title");
 		
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
+		// ViewBookTags tag = dao.getOneViewBookTagByTitle(title);
 		ViewBookTags tag = dao.getOneViewBookTagByISBN(isbn13);
 		
 		if (tag!= null) {
@@ -61,7 +64,7 @@ public class UpdateBookTagServlet extends HttpServlet {
 		if (isSuccess) {
 			request.getSession().setAttribute("message", "Book successfully updated");
 			request.getSession().setAttribute("messageClass", "alert-success");
-			response.sendRedirect("ViewBookTags?isbn13=" + isbn13);
+			response.sendRedirect("ViewBookTags?title=" + title);
 		} else {
 			request.getSession().setAttribute("message", "There was a problem updating this book");
 			request.getSession().setAttribute("messageClass", "alert-danger");
