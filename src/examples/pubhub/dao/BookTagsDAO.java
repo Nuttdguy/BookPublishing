@@ -17,10 +17,12 @@ public interface BookTagsDAO {
 	public List<BookTags> getBooksByTagName(String bookTag);
 	public BookTags getBookTagByISBN(String isbn);
 	
-	public boolean addBookTag(BookTags bookTag);
+	public boolean addBookTag(BookTags viewBookTag);
+	public boolean addViewBookTag(ViewBookTags viewBookTag);
+	
 	public boolean updateBookTag(BookTags bookTag);
 	public boolean updateViewBookTag(ViewBookTags bookTag);
 	
-	public boolean deleteBookTagByISBN(String isbn);
+	public boolean deleteBookTagByTagName(String tagName);
 
 }

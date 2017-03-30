@@ -21,7 +21,7 @@
 		</h1>
 		<hr class="book-primary">
 
-		<form action="EditBookTag" method="post" class="form-horizontal">
+		<form action="UpdateBookTag" method="post" class="form-horizontal">
 			<input type="hidden" class="form-control" id="isbn13" name="isbn13" required="required" value="${viewBookTags.isbn13 }" />
 
 			<div class="form-group">

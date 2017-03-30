@@ -1,6 +1,7 @@
 package examples.pubhub.servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,27 +17,30 @@ import examples.pubhub.utilities.DAOUtilities;
 public class AddBookTagServlet extends HttpServlet  {
 	private static final long serialVersionUID = 1L;
 	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			
+		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();	
+		BookTags tag = new BookTags();
+		tag.setIsbn13(request.getParameter("isbn13"));
+		
+		request.setAttribute("bookTags", tag);	
+		request.getRequestDispatcher("addTag.jsp").forward(request, response);
+		
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean isSuccess;
-		String isbn13 = request.getParameter("isbn13");
 		
 		// Get book tag by ISBN
 		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
-		BookTags tag = dao.getBookTagByISBN(isbn13);
+		BookTags tag = new BookTags();
 		
-		if (tag != null) {
-			// if tag exists, get parameters
-			tag.setTagName(request.getParameter("tag_name"));
-			tag.setIsbn13(request.getParameter("isbn13"));
-			
-			request.setAttribute("bookTags", tag);
-			isSuccess = dao.addBookTag(tag);
-			
-			// TODO return to complete Logic, feature does not make sense
-		} else {
-			isSuccess = false;
-		}
+		tag.setTagName(request.getParameter("tagName"));
+		tag.setIsbn13(request.getParameter("isbn13"));
 		
+		request.setAttribute("bookTags", tag);
+		isSuccess = dao.addBookTag(tag);
+
 		if(isSuccess) {
 			request.getSession().setAttribute("message", "Book tag successfully added");
 			request.getSession().setAttribute("messageClass", "alert-success");
