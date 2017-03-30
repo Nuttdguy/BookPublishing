@@ -57,7 +57,7 @@
 								<input type="hidden" name="isbn13" value="${book.isbn13}">
 								<input type="hidden" name="title" value="${book.title}">
 								<input type="hidden" name="author" value="${book.author}">
-								<button class="btn btn-primary">View Tag</button>
+								<button class="btn btn-primary">View Tags</button>
 						</form></td>
 					</tr>
 				</c:forEach>
