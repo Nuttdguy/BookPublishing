@@ -34,6 +34,7 @@ public class PublishBookServlet extends HttpServlet {
 
 		BookDAO database = DAOUtilities.getBookDAO();
 		Book tempBook = database.getBookByISBN(isbn13);
+		
 		if (tempBook != null) {
 			// ASSERT: book with isbn already exists
 

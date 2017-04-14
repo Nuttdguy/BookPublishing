@@ -1,5 +1,7 @@
 package examples.pubhub.modelview;
 
+import java.time.LocalDate;
+
 import examples.pubhub.model.Book;
 import examples.pubhub.model.BookTags;
 
@@ -53,4 +55,29 @@ public class ViewBookTags {
 	public void setBookTagId(int id) {
 		this.bookTags.setBookTagsId(id);
 	}
+	
+	public LocalDate getPublishDate() {
+		return this.book.getPublishDate();
+	}
+
+	public void setPublishDate(LocalDate publishDate) {
+		this.book.setPublishDate(publishDate);
+	}
+
+	public double getPrice() {
+		return this.book.getPrice();
+	}
+
+	public void setPrice(double price) {
+		this.book.setPrice(price);
+	}
+	
+	public byte[] getContent() {
+		return book.getContent();
+	}
+
+	public void setContent(byte[] content) {
+		this.book.setContent(content);
+	}
+	
 }

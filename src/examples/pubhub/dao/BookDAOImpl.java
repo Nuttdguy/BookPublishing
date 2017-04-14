@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import examples.pubhub.model.Book;
+import examples.pubhub.modelview.ViewBookTags;
 import examples.pubhub.utilities.DAOUtilities;
 
 /**
@@ -19,6 +20,44 @@ public class BookDAOImpl implements BookDAO {
 
 	Connection connection = null;	// Our connection to the database
 	PreparedStatement stmt = null;	// We use prepared statements to help protect against SQL injection
+	
+	/*------------------------------------------------------------------------------------------------*/
+	
+	@Override 
+	public List<ViewBookTags> getAllBooksWithTag() {
+		
+		List<ViewBookTags> bookList = new ArrayList<>();
+		
+		try {
+			connection = DAOUtilities.getConnection();
+			String sql = "SELECT * FROM books a INNER JOIN book_tags b ON a.isbn_13 = b.isbn_13";
+			stmt = connection.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				ViewBookTags book = new ViewBookTags();
+				
+				book.setAuthor(rs.getString("author"));
+				book.setTitle(rs.getString("title"));
+				book.setPrice(rs.getDouble("price"));
+				book.setContent(rs.getBytes("content"));
+				book.setBookTagId(rs.getInt("bookTags_id"));
+				book.setIsbn13(rs.getString("isbn_13"));
+				book.setTagName(rs.getString("tag_name"));
+				
+				bookList.add(book);
+			}
+			rs.close();
+			
+		} catch (SQLException sex ) {
+			sex.printStackTrace();
+		} finally {
+			closeResources();
+		}
+		
+		return bookList;
+	}
 	
 	/*------------------------------------------------------------------------------------------------*/
 	
@@ -238,7 +277,8 @@ public class BookDAOImpl implements BookDAO {
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "INSERT INTO Books VALUES (?, ?, ?, ?, ?, ?)"; // Were using a lot of ?'s here...
+			String sql = "INSERT INTO Books (isbn_13, title, author, publish_date, price, content) VALUES (?, ?, ?, ?, ?, ?);"
+					+ "INSERT INTO book_tags (isbn_13, tag_name) VALUES (?, ?);"; // Were using a lot of ?'s here...
 			stmt = connection.prepareStatement(sql);
 			
 			// But that's okay, we can set them all before we execute
@@ -249,6 +289,8 @@ public class BookDAOImpl implements BookDAO {
 			stmt.setDouble(5, book.getPrice());
 			
 			stmt.setBytes(6, book.getContent());
+			stmt.setString(7, book.getIsbn13());
+			stmt.setString(8, " ");
 			
 			// If we were able to add our book to the DB, we want to return true. 
 			// This if statement both executes our query, and looks at the return 
