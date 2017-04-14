@@ -41,7 +41,7 @@ public class Book {
 		this.isbn13 = null;
 		this.title = null;
 		this.author = null;
-		this.publishDate = LocalDate.now();
+		this.publishDate = null ;
 		this.content = null;
 		this.bookTags = new ArrayList<>();
 	}

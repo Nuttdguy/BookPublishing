@@ -1,5 +1,6 @@
 package examples.pubhub.modelview;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 import examples.pubhub.model.Book;
@@ -78,6 +79,11 @@ public class ViewBookTags {
 
 	public void setContent(byte[] content) {
 		this.book.setContent(content);
+	}
+
+	public void setPublishDate(Date date) {
+		this.book.setPublishDate( new java.sql.Date( date.getTime() ).toLocalDate() );
+		
 	}
 	
 }

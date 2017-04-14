@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class BookDAOImpl implements BookDAO {
 				book.setTitle(rs.getString("title"));
 				book.setPrice(rs.getDouble("price"));
 				book.setContent(rs.getBytes("content"));
+				book.setPublishDate( rs.getDate("publish_date") );
 				book.setBookTagId(rs.getInt("bookTags_id"));
 				book.setIsbn13(rs.getString("isbn_13"));
 				book.setTagName(rs.getString("tag_name"));
