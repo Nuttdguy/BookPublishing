@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import examples.pubhub.dao.BookTagsDAO;
-import examples.pubhub.modelview.ViewBookTags;
+import examples.pubhub.dao.BookTagDAO;
+import examples.pubhub.model.view.BookTagView;
 import examples.pubhub.utilities.DAOUtilities;
 
-@WebServlet("/ViewBookTags")
+@WebServlet("/BookTagView")
 public class ViewBookTagsServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -25,12 +25,12 @@ public class ViewBookTagsServlet extends HttpServlet {
 		String author = request.getParameter("author");
 		
 		// Grab the list of Book Tags from the Database
-		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
+		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
 		
-		// List<ViewBookTags> tag = dao.getAllBookTags();		
-//		ViewBookTags tag = dao.getViewBookTagByISBN(isbn);
-		List<ViewBookTags> tagList = dao.getViewBookTagByTitle(title);
-		ViewBookTags singleTag = new ViewBookTags();
+		// List<BookTagView> tag = dao.getAllBookTags();		
+//		BookTagView tag = dao.getViewBookTagByISBN(isbn);
+		List<BookTagView> tagList = dao.getViewBookTagByTitle(title);
+		BookTagView singleTag = new BookTagView();
 		
 		if (tagList.size() > 0) {
 			singleTag = tagList.get(0);
@@ -44,7 +44,7 @@ public class ViewBookTagsServlet extends HttpServlet {
 		
 		// Populate the list into a variable that will be stored in the session =
 		request.setAttribute("singleTag", singleTag);
-		request.getSession().setAttribute("ViewBookTags", tagList);
+		request.getSession().setAttribute("BookTagView", tagList);
 		
 		// Use dispatcher, get jsp view and forward request/response to client
 		request.getRequestDispatcher("viewBookTags.jsp").forward(request, response);
@@ -56,7 +56,7 @@ public class ViewBookTagsServlet extends HttpServlet {
 		// String isbn13 = request.getParameter("isbn13");
 		String tagName = request.getParameter("tagName");
 		
-		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
+		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
 		if (!tagName.isEmpty())
 			isSuccess = dao.deleteBookTagByTagName(tagName);
 		

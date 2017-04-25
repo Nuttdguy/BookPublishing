@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 import examples.pubhub.dao.BookDAO;
 import examples.pubhub.dao.BookDAOImpl;
-import examples.pubhub.dao.BookTagsDAO;
-import examples.pubhub.dao.BookTagsDAOImpl;
+import examples.pubhub.dao.BookTagDAO;
+import examples.pubhub.dao.BookTagDAOImpl;
 
 /**
  * Class used to retrieve DAO Implementations. Serves as a factory. Also manages a single instance of the database connection.
@@ -42,8 +42,8 @@ public class DAOUtilities {
 		return new BookDAOImpl();
 	}
 	
-	public static BookTagsDAO getBookTagsDAO() {
-		return new BookTagsDAOImpl();
+	public static BookTagDAO getBookTagsDAO() {
+		return new BookTagDAOImpl();
 	}
 
 }

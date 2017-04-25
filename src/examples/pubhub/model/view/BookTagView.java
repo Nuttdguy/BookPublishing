@@ -1,4 +1,4 @@
-package examples.pubhub.modelview;
+package examples.pubhub.model.view;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -6,12 +6,12 @@ import java.time.LocalDate;
 import examples.pubhub.model.Book;
 import examples.pubhub.model.BookTags;
 
-public class ViewBookTags {
+public class BookTagView {
 	
 	private Book book;
 	private BookTags bookTags;
 	
-	public ViewBookTags() {
+	public BookTagView() {
 		this.book = new Book();
 		this.bookTags = new BookTags();
 	}

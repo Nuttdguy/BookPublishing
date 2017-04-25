@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import examples.pubhub.model.BookTags;
-import examples.pubhub.modelview.ViewBookTags;
+import examples.pubhub.model.view.BookTagView;
 import examples.pubhub.utilities.DAOUtilities;
 
-public class BookTagsDAOImpl implements BookTagsDAO {
+public class BookTagDAOImpl implements BookTagDAO {
 
 	Connection connection = null; // Our connection to the Database
 	PreparedStatement stmt = null; // Use prepared statements to help protect against SQL injection
@@ -19,9 +19,9 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 	/*------------------------------------------------------------------------------------------*/
 
 	@Override
-	public List<ViewBookTags> getAllBookTags() {
+	public List<BookTagView> getAllBookTags() {
 
-		List<ViewBookTags> bookTags = new ArrayList<>();
+		List<BookTagView> bookTags = new ArrayList<>();
 
 		try {
 			connection = DAOUtilities.getConnection(); // Get the database connection from the manager
@@ -32,7 +32,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 
 			while (resultSet.next()) {
 				// populate a Book object with info for each row from query result
-				ViewBookTags tag = new ViewBookTags();
+				BookTagView tag = new BookTagView();
 
 				// Each variable in our Book object maps to a column in a row from result
 				tag.setTagName(resultSet.getString("tag_name"));
@@ -57,9 +57,9 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 	/*------------------------------------------------------------------------------------------*/
 
 	@Override
-	public ViewBookTags getOneViewBookTagByISBN(String isbn) {
+	public BookTagView getOneViewBookTagByISBN(String isbn) {
 		
-		ViewBookTags viewBookTag = null;;
+		BookTagView viewBookTag = null;;
 		
 		try {
 			connection = DAOUtilities.getConnection();
@@ -76,7 +76,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 			
 			while (rs.next()) {
 				
-				viewBookTag = new ViewBookTags();
+				viewBookTag = new BookTagView();
 				
 				viewBookTag.setIsbn13(rs.getString("isbn_13"));
 				viewBookTag.setAuthor(rs.getString("author"));
@@ -96,9 +96,9 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 	/*------------------------------------------------------------------------------------------*/
 
 	@Override
-	public ViewBookTags getOneViewBookTagByTitle(String title) {
+	public BookTagView getOneViewBookTagByTitle(String title) {
 		
-		ViewBookTags viewBookTag = new ViewBookTags();
+		BookTagView viewBookTag = new BookTagView();
 		
 		try {
 			connection = DAOUtilities.getConnection();
@@ -131,9 +131,9 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 	/*------------------------------------------------------------------------------------------*/
 
 	@Override
-	public List<ViewBookTags> getViewBookTagByISBN(String isbn) {
+	public List<BookTagView> getViewBookTagByISBN(String isbn) {
 		
-		List<ViewBookTags> viewBookTag = new ArrayList<>();
+		List<BookTagView> viewBookTag = new ArrayList<>();
 		
 		try {
 			connection = DAOUtilities.getConnection();
@@ -147,7 +147,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 			ResultSet rs  = stmt.executeQuery();
 			
 			while (rs.next()) {
-				ViewBookTags bookTag = new ViewBookTags();
+				BookTagView bookTag = new BookTagView();
 				
 				bookTag.setIsbn13(rs.getString("isbn_13"));
 				bookTag.setAuthor(rs.getString("author"));
@@ -167,8 +167,8 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 
 	/*------------------------------------------------------------------------------------------------*/
 	
-	public List<ViewBookTags> getViewBookTagByTitle(String title) {
-		List<ViewBookTags> bookTags = new ArrayList<>();
+	public List<BookTagView> getViewBookTagByTitle(String title) {
+		List<BookTagView> bookTags = new ArrayList<>();
 		
 		try {
 			connection = DAOUtilities.getConnection();
@@ -183,7 +183,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				ViewBookTags tag = new ViewBookTags();
+				BookTagView tag = new BookTagView();
 				
 				tag.setAuthor(rs.getString("author"));
 				tag.setTitle(rs.getString("title"));
@@ -275,7 +275,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 	/*------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public boolean addViewBookTag(ViewBookTags viewBookTag) {
+	public boolean addViewBookTag(BookTagView viewBookTag) {
 
 		try {
 			connection = DAOUtilities.getConnection();
@@ -355,7 +355,7 @@ public class BookTagsDAOImpl implements BookTagsDAO {
 	/*------------------------------------------------------------------------------------------------*/
 	
 	@Override
-	public boolean updateViewBookTag(ViewBookTags bookTag) {
+	public boolean updateViewBookTag(BookTagView bookTag) {
 		
 		try {
 			connection = DAOUtilities.getConnection();

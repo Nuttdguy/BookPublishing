@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import examples.pubhub.dao.BookDAO;
-import examples.pubhub.modelview.ViewBookTags;
+import examples.pubhub.model.view.BookTagView;
 import examples.pubhub.utilities.DAOUtilities;
 
 /*
@@ -25,7 +25,7 @@ public class BookPublishingServlet extends HttpServlet {
 
 		// Grab the list of Books from the Database
 		BookDAO dao = DAOUtilities.getBookDAO();
-		List<ViewBookTags> bookList = dao.getAllBooksWithTag();
+		List<BookTagView> bookList = dao.getAllBooksWithTag();
 		// System.out.println(bookList.size());
 
 		// Populate the list into a variable that will be stored in the session

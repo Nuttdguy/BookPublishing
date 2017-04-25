@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import examples.pubhub.model.Book;
-import examples.pubhub.modelview.ViewBookTags;
+import examples.pubhub.model.view.BookTagView;
 import examples.pubhub.utilities.DAOUtilities;
 
 /**
@@ -23,9 +23,9 @@ public class BookDAOImpl implements BookDAO {
 	/*------------------------------------------------------------------------------------------------*/
 	
 	@Override 
-	public List<ViewBookTags> getAllBooksWithTag() {
+	public List<BookTagView> getAllBooksWithTag() {
 		
-		List<ViewBookTags> bookList = new ArrayList<>();
+		List<BookTagView> bookList = new ArrayList<>();
 		
 		try {
 			connection = DAOUtilities.getConnection();
@@ -35,7 +35,7 @@ public class BookDAOImpl implements BookDAO {
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				ViewBookTags book = new ViewBookTags();
+				BookTagView book = new BookTagView();
 				
 				book.setAuthor(rs.getString("author"));
 				book.setTitle(rs.getString("title"));

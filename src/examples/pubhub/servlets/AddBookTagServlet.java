@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import examples.pubhub.dao.BookTagsDAO;
+import examples.pubhub.dao.BookTagDAO;
 import examples.pubhub.model.BookTags;
 import examples.pubhub.utilities.DAOUtilities;
 
@@ -29,7 +29,7 @@ public class AddBookTagServlet extends HttpServlet  {
 		boolean isSuccess;
 		
 		// Get book tag by ISBN
-		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
+		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
 		BookTags tag = new BookTags();
 		
 		tag.setTagName(request.getParameter("tagName"));

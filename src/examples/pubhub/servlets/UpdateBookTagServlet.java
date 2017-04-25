@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import examples.pubhub.dao.BookTagsDAO;
-import examples.pubhub.modelview.ViewBookTags;
+import examples.pubhub.dao.BookTagDAO;
+import examples.pubhub.model.view.BookTagView;
 import examples.pubhub.utilities.DAOUtilities;
 
 @WebServlet("/UpdateBookTag")
@@ -24,10 +24,10 @@ public class UpdateBookTagServlet extends HttpServlet {
 		String author = request.getParameter("author");
 		
 		// create connection dao instance
-		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
+		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
 		
 		// call dao, get data for isbn
-		ViewBookTags tag = dao.getOneViewBookTagByTitle(title);
+		BookTagView tag = dao.getOneViewBookTagByTitle(title);
 		
 		if (tag != null) {
 			tag.setAuthor(author);
@@ -47,9 +47,9 @@ public class UpdateBookTagServlet extends HttpServlet {
 		String isbn13 = request.getParameter("isbn13");
 		String title = request.getParameter("title");
 		
-		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();
-		// ViewBookTags tag = dao.getOneViewBookTagByTitle(title);
-		ViewBookTags tag = dao.getOneViewBookTagByISBN(isbn13);
+		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
+		// BookTagView tag = dao.getOneViewBookTagByTitle(title);
+		BookTagView tag = dao.getOneViewBookTagByISBN(isbn13);
 		
 		if (tag!= null) {
 			
@@ -62,7 +62,7 @@ public class UpdateBookTagServlet extends HttpServlet {
 			isSuccess = dao.updateViewBookTag(tag);
 		} else {
 			// couldn't find book with isbn. Update failed
-			tag = new ViewBookTags();
+			tag = new BookTagView();
 			tag.setAuthor(request.getParameter("author"));
 			tag.setTitle(request.getParameter("title"));
 			tag.setIsbn13(request.getParameter("isbn13"));
@@ -75,7 +75,7 @@ public class UpdateBookTagServlet extends HttpServlet {
 		if (isSuccess) {
 			request.getSession().setAttribute("message", "Book successfully updated");
 			request.getSession().setAttribute("messageClass", "alert-success");
-			response.sendRedirect("ViewBookTags?title=" + title);
+			response.sendRedirect("BookTagView?title=" + title);
 		} else {
 			request.getSession().setAttribute("message", "Tag has been added to book");
 			request.getSession().setAttribute("messageClass", "alert-danger");
