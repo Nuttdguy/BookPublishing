@@ -4,16 +4,16 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 import examples.pubhub.model.Book;
-import examples.pubhub.model.BookTags;
+import examples.pubhub.model.BookTag;
 
 public class BookTagView {
 	
 	private Book book;
-	private BookTags bookTags;
+	private BookTag bookTags;
 	
 	public BookTagView() {
 		this.book = new Book();
-		this.bookTags = new BookTags();
+		this.bookTags = new BookTag();
 	}
 	
 	public String getIsbn13() {
@@ -60,6 +60,11 @@ public class BookTagView {
 	public LocalDate getPublishDate() {
 		return this.book.getPublishDate();
 	}
+	
+	public void setPublishDate(Date date) {
+		this.book.setPublishDate( new java.sql.Date( date.getTime() ).toLocalDate() );	
+	}
+	
 
 	public void setPublishDate(LocalDate publishDate) {
 		this.book.setPublishDate(publishDate);
@@ -81,9 +86,4 @@ public class BookTagView {
 		this.book.setContent(content);
 	}
 
-	public void setPublishDate(Date date) {
-		this.book.setPublishDate( new java.sql.Date( date.getTime() ).toLocalDate() );
-		
-	}
-	
 }

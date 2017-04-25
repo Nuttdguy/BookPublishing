@@ -1,18 +1,18 @@
 package examples.pubhub.model;
 
-public class BookTags {
+public class BookTag {
 
 	private int bookTagsId;
 	private String isbn13;
 	private String tagName;
 	
-	public BookTags() {
+	public BookTag() {
 		this.bookTagsId = 0;
 		this.tagName = null;
 		this.isbn13 = null;
 	}
 	
-	public BookTags(int bookTagsId, String tagName, String isbn) {
+	public BookTag(int bookTagsId, String tagName, String isbn) {
 		this.bookTagsId = bookTagsId;
 		this.tagName = tagName;
 		this.isbn13 = isbn;

@@ -10,7 +10,7 @@ public class Book {
 	private String title;
 	private String author;
 	private LocalDate publishDate;	// Date of publish to the website
-	private List<BookTags> bookTags;
+	private List<BookTag> bookTags;
 	
 	private double price;
 	
@@ -94,11 +94,11 @@ public class Book {
 		this.content = content;
 	}
 
-	public List<BookTags> getBookTags() {
+	public List<BookTag> getBookTags() {
 		return bookTags;
 	}
 
-	public void setBookTags(BookTags bookTags) {
+	public void setBookTags(BookTag bookTags) {
 		this.bookTags.add(bookTags);
 	}	
 	

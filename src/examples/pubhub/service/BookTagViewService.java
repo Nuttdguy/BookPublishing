@@ -15,12 +15,12 @@ public interface BookTagViewService {
 	public List<BookTagView> getAllViewBookTagByTitle(String title);
 	
 	// Add Record
-	public boolean addViewBookTag(BookTagView viewBookTag);
+	public boolean addViewBookTag(BookTagView bookTagView);
 	
 	// Update Record
-	public boolean updateViewBookTag(BookTagView viewBookTag);
+	public boolean updateViewBookTag(BookTagView bookTagView);
 	
 	// Delete Record
-public boolean deleteBookTagByTagName(String tagName);														
+	public boolean deleteBookTagByTagName(String tagName);														
 	
 }

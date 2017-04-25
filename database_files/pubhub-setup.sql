@@ -1,3 +1,4 @@
+drop table if exists book_tag;
 drop table if exists books;
 
 create table books (
@@ -9,6 +10,13 @@ create table books (
   content bytea
 );
 
+create table book_tag (
+	book_tag_id serial primary key,
+	isbn_13 varchar (13),
+	tag_name varchar (100),
+	foreign key (isbn_13) references books (isbn_13) on delete cascade on update cascade	
+);
+
 insert into books values (
   '1111111111111',          	-- id
   'The Adventures of Steve',    -- title
@@ -17,3 +25,11 @@ insert into books values (
   123.50,   					-- price
   null							-- blob
 );
+
+insert into book_tag (isbn_13, tag_name) values (
+	'1111111111111',
+	'adventure'
+);
+
+
+

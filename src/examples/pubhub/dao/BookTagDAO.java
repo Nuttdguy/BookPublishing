@@ -2,27 +2,27 @@ package examples.pubhub.dao;
 
 import java.util.List;
 
-import examples.pubhub.model.BookTags;
-import examples.pubhub.model.view.BookTagView;
+import examples.pubhub.model.BookTag;
+
 
 public interface BookTagDAO {
 	
-	public List<BookTagView> getAllBookTags();
-	public BookTagView getOneViewBookTagByTitle(String title);
-	public BookTagView getOneViewBookTagByISBN(String isbn);	
+	// Retrieve Single Results
+	public BookTag getBookTagByTitle(String title);
+	public BookTag getBookTagByISBN(String isbn);
 	
-	public List<BookTagView> getViewBookTagByISBN(String isbn);
-	public List<BookTagView> getViewBookTagByTitle(String title);
+	// Retrieve List of Results
+	public List<BookTag> getAllBookTag();
+	public List<BookTag> getAllViewBookTagByISBN(String isbn);	
+	public List<BookTag> getAllBookTagByTagName(String bookTag);
 	
-	public List<BookTags> getBooksByTagName(String bookTag);
-	public BookTags getBookTagByISBN(String isbn);
+	// Add Record
+	public boolean addBookTag(BookTag bookTag);
 	
-	public boolean addBookTag(BookTags viewBookTag);
-	public boolean addViewBookTag(BookTagView viewBookTag);
+	// Update Record
+	public boolean updateBookTag(BookTag bookTag);
 	
-	public boolean updateBookTag(BookTags bookTag);
-	public boolean updateViewBookTag(BookTagView bookTag);
-	
+	// Delete Record
 	public boolean deleteBookTagByTagName(String tagName);
 
 }

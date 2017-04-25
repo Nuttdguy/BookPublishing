@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import examples.pubhub.model.BookTags;
+import examples.pubhub.model.BookTag;
 import examples.pubhub.model.view.BookTagView;
 import examples.pubhub.utilities.DAOUtilities;
 
@@ -205,9 +205,9 @@ public class BookTagDAOImpl implements BookTagDAO {
 	/*------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public List<BookTags> getBooksByTagName(String bookTag) {
+	public List<BookTag> getBooksByTagName(String bookTag) {
 
-		List<BookTags> bookTags = new ArrayList<>();
+		List<BookTag> bookTags = new ArrayList<>();
 
 		try {
 			connection = DAOUtilities.getConnection();
@@ -219,7 +219,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				BookTags tag = new BookTags();
+				BookTag tag = new BookTag();
 
 				tag.setBookTagsId(rs.getInt("booktags_id"));
 				tag.setIsbn13(rs.getString("isbn_13"));
@@ -240,9 +240,9 @@ public class BookTagDAOImpl implements BookTagDAO {
 	/*------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public BookTags getBookTagByISBN(String isbn) {
+	public BookTag getBookTagByISBN(String isbn) {
 
-		BookTags bookTags = null;
+		BookTag bookTags = null;
 
 		try {
 			connection = DAOUtilities.getConnection();
@@ -254,7 +254,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				bookTags = new BookTags();
+				bookTags = new BookTag();
 
 				bookTags.setBookTagsId(rs.getInt("booktags_id"));
 				bookTags.setIsbn13(rs.getString("isbn_13"));
@@ -302,7 +302,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 	/*------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public boolean addBookTag(BookTags bookTag) {
+	public boolean addBookTag(BookTag bookTag) {
 
 		try {
 			connection = DAOUtilities.getConnection();
@@ -329,7 +329,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 	/*------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public boolean updateBookTag(BookTags bookTag) {
+	public boolean updateBookTag(BookTag bookTag) {
 
 		try {
 			connection = DAOUtilities.getConnection();

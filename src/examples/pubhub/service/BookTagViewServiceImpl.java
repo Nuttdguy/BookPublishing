@@ -1,16 +1,51 @@
 package examples.pubhub.service;
 
-public class BookTagViewServiceImpl {
+import java.util.List;
 
-	// What do we want to do?
-	// Initialize BookTagView; transfer SQL data into POJO
-	
-	// Step 1:
-	// Call the BookDao, return the ISBN_13
-	
-	// Step 2:
-	// Call the BookTagDao, return ISBN_13
-	
-	
+import examples.pubhub.model.view.BookTagView;
+
+public class BookTagViewServiceImpl implements BookTagViewService {
+
+	@Override
+	public BookTagView getViewBookTagByTitle(String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BookTagView getViewBookTagByISBN(String isbn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BookTagView> getAllViewBookTagByISBN(String isbn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BookTagView> getAllViewBookTagByTitle(String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addViewBookTag(BookTagView viewBookTag) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateViewBookTag(BookTagView viewBookTag) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteBookTagByTagName(String tagName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }
