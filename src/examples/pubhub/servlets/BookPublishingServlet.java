@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import examples.pubhub.dao.BookDAO;
-import examples.pubhub.model.Book;
-import examples.pubhub.model.BookTags;
 import examples.pubhub.modelview.ViewBookTags;
 import examples.pubhub.utilities.DAOUtilities;
 

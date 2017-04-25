@@ -1,7 +1,9 @@
 package examples.pubhub.utilities;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -22,8 +24,25 @@ public class BlobBootstrapper {
 		Connection conn = null;
 		String sql = "UPDATE Books SET content = ? WHERE isbn_13='1111111111111'";
 		PreparedStatement stmt = null;
-		InputStream is = null;
-	
+		InputStream is = null; 
+		
+		String createDbFile = "/database_files/pubhub-setup.sql";
+		String sqlDb = null;
+		BufferedReader br = null;
+		
+		try {
+			br = new BufferedReader( new FileReader(createDbFile) );
+			String currentLine;
+			
+			while ( (currentLine = br.readLine()) != null ) {
+				currentLine += currentLine;
+			}
+			
+			sqlDb = currentLine;
+		} catch (IOException io) {
+			io.printStackTrace();
+		}
+		
 		File tempFile = new File("ws.pdf");
 		System.out.println(tempFile.exists()?"The sample file exists":"The sample file does not exist! Did you delete \"ws.pdf\"?");
 		
@@ -37,7 +56,8 @@ public class BlobBootstrapper {
 			conn = DAOUtilities.getConnection();
 			stmt = conn.prepareStatement(sql);
 			
-			stmt.setBinaryStream(1, is, tempFile.length());
+			stmt.setBinaryStream(1, is, tempFile.length() );
+			
 			System.out.println("Executing SQL Statement: " + sql);
 			System.out.println("Connection is valid: " + conn.isValid(5));
 			System.out.println("Rows updated: " + stmt.executeUpdate());
@@ -46,9 +66,6 @@ public class BlobBootstrapper {
 			System.out.println("Failure!");
 			e.printStackTrace();
 		}
-		
-		
-		
 		
 	}
 

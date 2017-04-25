@@ -1,14 +1,12 @@
 package examples.pubhub.servlets;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import examples.pubhub.dao.BookTagsDAO;
 import examples.pubhub.model.BookTags;
 import examples.pubhub.utilities.DAOUtilities;
@@ -19,7 +17,6 @@ public class AddBookTagServlet extends HttpServlet  {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
-		BookTagsDAO dao = DAOUtilities.getBookTagsDAO();	
 		BookTags tag = new BookTags();
 		tag.setIsbn13(request.getParameter("isbn13"));
 		

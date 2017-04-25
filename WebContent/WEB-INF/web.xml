@@ -7,20 +7,24 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+	
 	<servlet>
 		<servlet-name>PublishBookServlet</servlet-name>
 		<servlet-class>examples.pubhub.servlets.PublishBookServlet</servlet-class>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>PublishBookServlet</servlet-name>
 		<url-pattern>/PublishBook</url-pattern>
 	</servlet-mapping>
+	
 	<error-page>
 		<error-code>404</error-code>
 		<location>/notFoundError.jsp</location>
 	</error-page>
+	
 	<error-page>
-		<exception-type>java.lang.Throwable</exception-type>
 		<location>/error.jsp</location>
 	</error-page>
+	
 </web-app>
