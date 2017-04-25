@@ -2,28 +2,28 @@ package examples.pubhub.model;
 
 public class BookTag {
 
-	private int bookTagsId;
+	private int bookTagId;
 	private String isbn13;
 	private String tagName;
 	
 	public BookTag() {
-		this.bookTagsId = 0;
+		this.bookTagId = 0;
 		this.tagName = null;
 		this.isbn13 = null;
 	}
 	
-	public BookTag(int bookTagsId, String tagName, String isbn) {
-		this.bookTagsId = bookTagsId;
+	public BookTag(int bookTagId, String tagName, String isbn) {
+		this.bookTagId = bookTagId;
 		this.tagName = tagName;
 		this.isbn13 = isbn;
 	}
 
-	public int getBookTagsId() {
-		return bookTagsId;
+	public int getBookTagId() {
+		return bookTagId;
 	}
 
-	public void setBookTagsId(int bookTagsId) {
-		this.bookTagsId = bookTagsId;
+	public void setBookTagId(int bookTagId) {
+		this.bookTagId = bookTagId;
 	}
 
 	public String getTagName() {

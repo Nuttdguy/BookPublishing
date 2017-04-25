@@ -8,7 +8,13 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 
 	@Override
 	public BookTagView getViewBookTagByTitle(String title) {
-		// TODO Auto-generated method stub
+		BookTagView bookView = new BookTagView();
+		
+		// Get book from BookDaoImpl
+		// bookView = 
+		
+		// Get book_tag from BookTagDaoImpl
+		
 		return null;
 	}
 

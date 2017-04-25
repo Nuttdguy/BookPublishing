@@ -9,11 +9,11 @@ import examples.pubhub.model.BookTag;
 public class BookTagView {
 	
 	private Book book;
-	private BookTag bookTags;
+	private BookTag bookTag;
 	
 	public BookTagView() {
 		this.book = new Book();
-		this.bookTags = new BookTag();
+		this.bookTag = new BookTag();
 	}
 	
 	public String getIsbn13() {
@@ -21,7 +21,7 @@ public class BookTagView {
 	}
 	
 	public void setIsbn13(String isbn13) {
-		this.bookTags.setIsbn13(isbn13);
+		this.bookTag.setIsbn13(isbn13);
 		this.book.setIsbn13(isbn13);
 	}
 	
@@ -42,19 +42,19 @@ public class BookTagView {
 	}
 	
 	public String getTagName() {
-		return this.bookTags.getTagName();
+		return this.bookTag.getTagName();
 	}
 
 	public void setTagName(String tagName) {
-		this.bookTags.setTagName(tagName);
+		this.bookTag.setTagName(tagName);
 	}
 	
 	public int getBookTagId() {
-		return this.bookTags.getBookTagsId();
+		return this.bookTag.getBookTagId();
 	}
 	
 	public void setBookTagId(int id) {
-		this.bookTags.setBookTagsId(id);
+		this.bookTag.setBookTagId(id);
 	}
 	
 	public LocalDate getPublishDate() {
@@ -62,7 +62,7 @@ public class BookTagView {
 	}
 	
 	public void setPublishDate(Date date) {
-		this.book.setPublishDate( new java.sql.Date( date.getTime() ).toLocalDate() );	
+		this.book.setPublishDate( date.toLocalDate() );	
 	}
 	
 

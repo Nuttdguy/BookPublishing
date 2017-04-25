@@ -19,7 +19,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 	/*------------------------------------------------------------------------------------------*/
 
 	@Override
-	public List<BookTagView> getAllBookTags() {
+	public List<BookTag> getAllBookTag() {
 
 		List<BookTagView> bookTags = new ArrayList<>();
 

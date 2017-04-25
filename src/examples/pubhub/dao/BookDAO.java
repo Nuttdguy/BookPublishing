@@ -10,11 +10,11 @@ import examples.pubhub.model.Book;
 public interface BookDAO {
 	
 	// Retrieve Single Result
-	public List<Book> getAllBookWithTag();	
 	public Book getBookByISBN(String isbn);
 
 	// Retrieve List of Results
 	public List<Book> getAllBooks();
+	public List<Book> getAllBookWithTag();
 	public List<Book> getBooksByTitle(String title);
 	public List<Book> getBooksByAuthor(String author);
 	public List<Book> getBooksLessThanPrice(double price);

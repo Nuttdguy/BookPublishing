@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,25 +24,28 @@ public class BookDAOImpl implements BookDAO {
 	/*------------------------------------------------------------------------------------------------*/
 	
 	@Override 
-	public List<BookTagView> getAllBookWithTag() {
+	public List<Book> getAllBooksWithTag() {
 		
-		List<BookTagView> bookList = new ArrayList<>();
+		List<Book> bookList = new ArrayList<>();
 		
 		try {
-			connection = DAOUtilities.getConnection();
-			String sql = "SELECT * FROM books a INNER JOIN book_tags b ON a.isbn_13 = b.isbn_13";
-			stmt = connection.prepareStatement(sql);
+			connection = DAOUtilities.getConnection(); // Get datasource connection
+			String sql = "SELECT * FROM books WHERE has_tag = true"; // Get all books has_tag
+			stmt = connection.prepareStatement(sql); 
 			
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				BookTagView book = new BookTagView();
+				Book book = new Book();
+				
+				// Handle Date to LocalDate conversion
+				Date date = rs.getDate("publish_date");
+				book.setPublishDate(  date.toLocalDate() );
 				
 				book.setAuthor(rs.getString("author"));
 				book.setTitle(rs.getString("title"));
 				book.setPrice(rs.getDouble("price"));
 				book.setContent(rs.getBytes("content"));
-				book.setPublishDate( rs.getDate("publish_date") );
 				book.setBookTagId(rs.getInt("bookTags_id"));
 				book.setIsbn13(rs.getString("isbn_13"));
 				book.setTagName(rs.getString("tag_name"));
@@ -66,7 +70,7 @@ public class BookDAOImpl implements BookDAO {
 	public List<Book> getAllBooks() {
 		
 		List<Book> books = new ArrayList<>();
-
+		
 		try {
 			connection = DAOUtilities.getConnection();	// Get our database connection from the manager
 			String sql = "SELECT * FROM Books";			// Our SQL query

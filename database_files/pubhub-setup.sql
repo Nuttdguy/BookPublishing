@@ -7,6 +7,7 @@ create table books (
   author varchar (80),
   publish_date date,
   price decimal (6,2),
+  has_tag boolean default true,
   content bytea
 );
 

@@ -10,6 +10,7 @@ public class Book {
 	private String title;
 	private String author;
 	private LocalDate publishDate;	// Date of publish to the website
+	private boolean hasTag;
 	private List<BookTag> bookTags;
 	
 	private double price;
@@ -43,6 +44,7 @@ public class Book {
 		this.author = null;
 		this.publishDate = null ;
 		this.content = null;
+		this.hasTag = true;
 		this.bookTags = new ArrayList<>();
 	}
 	
@@ -92,6 +94,14 @@ public class Book {
 
 	public void setContent(byte[] content) {
 		this.content = content;
+	}
+
+	public boolean isHasTag() {
+		return hasTag;
+	}
+
+	public void setHasTag(boolean hasTag) {
+		this.hasTag = hasTag;
 	}
 
 	public List<BookTag> getBookTags() {
