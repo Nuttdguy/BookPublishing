@@ -21,50 +21,47 @@ public class BookDAOImpl implements BookDAO {
 	Connection connection = null;	// Our connection to the database
 	PreparedStatement stmt = null;	// We use prepared statements to help protect against SQL injection
 	
-	/*------------------------------------------------------------------------------------------------*/
+	//==||  Section I   ||  Retrieve Single Record Methods
+	//==================================================\\
 	
-	@Override 
-	public List<Book> getAllBooksWithTag() {
-		
-		List<Book> bookList = new ArrayList<>();
-		
+	/*------------------------------------------------------------------------------------------*/
+	
+	@Override
+	public Book getBookByISBN(String isbn) {
+		Book book = null;
+
 		try {
-			connection = DAOUtilities.getConnection(); // Get datasource connection
-			String sql = "SELECT * FROM books WHERE has_tag = true"; // Get all books has_tag
-			stmt = connection.prepareStatement(sql); 
+			connection = DAOUtilities.getConnection();
+			String sql = "SELECT * FROM Books WHERE isbn_13 = ?";
+			stmt = connection.prepareStatement(sql);
 			
+			stmt.setString(1, isbn);		
 			ResultSet rs = stmt.executeQuery();
-			
-			while (rs.next()) {
-				Book book = new Book();
-				
-				// Handle Date to LocalDate conversion
-				Date date = rs.getDate("publish_date");
-				book.setPublishDate(  date.toLocalDate() );
-				
+
+			if (rs.next()) {
+				book = new Book();
+				book.setIsbn13(rs.getString("isbn_13"));
 				book.setAuthor(rs.getString("author"));
 				book.setTitle(rs.getString("title"));
+				book.setPublishDate(rs.getDate("publish_date").toLocalDate());
 				book.setPrice(rs.getDouble("price"));
-				book.setContent(rs.getBytes("content"));
-				book.setBookTagId(rs.getInt("bookTags_id"));
-				book.setIsbn13(rs.getString("isbn_13"));
-				book.setTagName(rs.getString("tag_name"));
-				
-				bookList.add(book);
+				book.setContent(rs.getBytes("content"));			
 			}
-			rs.close();
 			
-		} catch (SQLException sex ) {
-			sex.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		} finally {
 			closeResources();
 		}
 		
-		return bookList;
+		return book;
 	}
-	
-	/*------------------------------------------------------------------------------------------------*/
-	
+
+
+	//==||  Section II   ||  Retrieve List Of Record Methods
+	//==================================================\\
+		
+	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
 	public List<Book> getAllBooks() {
@@ -90,7 +87,7 @@ public class BookDAOImpl implements BookDAO {
 				
 				// The SQL DATE datatype maps to java.sql.Date... which isn't well supported anymore. 
 				// We use a LocalDate instead, because this is Java 8.
-				book.setPublishDate(rs.getDate("publish_date").toLocalDate());
+				book.setPublishDate(rs.getDate("publish_date").toLocalDate() );
 				book.setPrice(rs.getDouble("price"));
 				
 				// The PDF file is tricky; file data is stored in the DB as a BLOB - Binary Large Object. It's
@@ -119,6 +116,52 @@ public class BookDAOImpl implements BookDAO {
 	
 	/*------------------------------------------------------------------------------------------------*/
 
+	
+	@Override 
+	public List<Book> getAllBookWithTag() {
+		
+		List<Book> bookList = new ArrayList<>();
+		
+		try {
+			connection = DAOUtilities.getConnection();
+			String sql = "SELECT a.*,"
+					+ "b.* "
+					+ "FROM books a "
+					+ "INNER JOIN book_tag b"
+					+ "ON a.isbn_13 = b.isbn_13"
+					+ "WHERE a.has_tag = true"; 
+			stmt = connection.prepareStatement(sql); 
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				Book book = new Book();
+				
+				// Handle Date to LocalDate conversion
+				Date date = rs.getDate("publish_date");
+				book.setPublishDate(  date.toLocalDate() );
+				
+				book.setAuthor(rs.getString("author"));
+				book.setTitle(rs.getString("title"));
+				book.setPrice(rs.getDouble("price"));
+				book.setContent(rs.getBytes("content"));
+				book.setIsbn13(rs.getString("isbn_13"));
+				
+				bookList.add(book);
+			}
+			rs.close();
+			
+		} catch (SQLException sex ) {
+			sex.printStackTrace();
+		} finally {
+			closeResources();
+		}
+		
+		return bookList;
+	}
+	
+	/*------------------------------------------------------------------------------------------------*/
+	
 	
 	@Override
 	public List<Book> getBooksByTitle(String title) {
@@ -235,46 +278,11 @@ public class BookDAOImpl implements BookDAO {
 		
 		return books;
 	}
-
 	
-	/*------------------------------------------------------------------------------------------------*/
-
-	
-	@Override
-	public Book getBookByISBN(String isbn) {
-		Book book = null;
-
-		try {
-			connection = DAOUtilities.getConnection();
-			String sql = "SELECT * FROM Books WHERE isbn_13 = ?";
-			stmt = connection.prepareStatement(sql);
-			
-			stmt.setString(1, isbn);
-			
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				book = new Book();
-				book.setIsbn13(rs.getString("isbn_13"));
-				book.setAuthor(rs.getString("author"));
-				book.setTitle(rs.getString("title"));
-				book.setPublishDate(rs.getDate("publish_date").toLocalDate());
-				book.setPrice(rs.getDouble("price"));
-				book.setContent(rs.getBytes("content"));			
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeResources();
-		}
+	//==||  Section III   ||  Add New Record Methods
+	//==================================================\\
 		
-		return book;
-	}
-
-
-	/*------------------------------------------------------------------------------------------------*/
-
+	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
 	public boolean addBook(Book book) {
@@ -311,10 +319,11 @@ public class BookDAOImpl implements BookDAO {
 			closeResources();
 		}
 	}
-
 	
-	/*------------------------------------------------------------------------------------------------*/
-
+	//==||  Section IV   ||  Update Record Methods
+	//==================================================\\
+		
+	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
 	public boolean updateBook(Book book) {
@@ -343,10 +352,11 @@ public class BookDAOImpl implements BookDAO {
 		}
 		
 	}
-
 	
-	/*------------------------------------------------------------------------------------------------*/
-
+	//==||  Section V   ||  Delete Record Methods
+	//==================================================\\
+		
+	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
 	public boolean deleteBookByISBN(String isbn) {
@@ -370,9 +380,11 @@ public class BookDAOImpl implements BookDAO {
 		}
 	}
 
+	//==||  Section VI   ||  Close Resource Methods
+	//==================================================\\
+		
+	/*------------------------------------------------------------------------------------------*/
 	
-	/*------------------------------------------------------------------------------------------------*/
-
 	// Closing all resources is important, to prevent memory leaks. 
 	// Ideally, you really want to close them in the reverse-order you open them
 	private void closeResources() {

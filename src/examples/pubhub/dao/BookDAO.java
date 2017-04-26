@@ -10,21 +10,21 @@ import examples.pubhub.model.Book;
 public interface BookDAO {
 	
 	// Retrieve Single Result
-	public Book getBookByISBN(String isbn);
+	public Book getBookByISBN(String isbn);  //  review completed 04-25
 
 	// Retrieve List of Results
-	public List<Book> getAllBooks();
-	public List<Book> getAllBookWithTag();
-	public List<Book> getBooksByTitle(String title);
-	public List<Book> getBooksByAuthor(String author);
-	public List<Book> getBooksLessThanPrice(double price);
+	public List<Book> getAllBooks();  //  review completed 04-25
+	public List<Book> getAllBookWithTag(); //  review completed 04-25
+	public List<Book> getBooksByTitle(String title);  //  review completed 04-25
+	public List<Book> getBooksByAuthor(String author);  //  review completed 04-25
+	public List<Book> getBooksLessThanPrice(double price); //  review completed 04-25
 	
 	// Add Record
-	public boolean addBook(Book book);
+	public boolean addBook(Book book);  //  review completed 04-25
 	
 	// Update Record
-	public boolean updateBook(Book book);
+	public boolean updateBook(Book book);  //  review completed 04-25
 	
 	// Delete Record
-	public boolean deleteBookByISBN(String isbn);
+	public boolean deleteBookByISBN(String isbn);  //  review completed 04-25
 }
