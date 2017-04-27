@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import examples.pubhub.dao.BookDAO;
 import examples.pubhub.model.view.BookTagView;
+import examples.pubhub.service.BookTagViewService;
 import examples.pubhub.utilities.DAOUtilities;
 
 /*
@@ -24,9 +25,11 @@ public class BookPublishingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Grab the list of Books from the Database
-		BookDAO dao = DAOUtilities.getBookDAO();
-		List<BookTagView> bookList = dao.getAllBooksWithTag();
-		// System.out.println(bookList.size());
+		// BookDAO dao = DAOUtilities.getBookDAO();
+		// List<BookTagView> bookList = dao.getAllBooksWithTag();
+		
+		BookTagViewService bkTagService = DAOUtilities.getBookTagService();
+		List<BookTagView> bookList = bkTagService.getAllBookTagViewWithTag();
 
 		// Populate the list into a variable that will be stored in the session
 		request.getSession().setAttribute("books", bookList);

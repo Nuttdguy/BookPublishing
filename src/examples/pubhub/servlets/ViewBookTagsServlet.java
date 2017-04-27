@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import examples.pubhub.dao.BookTagDAO;
 import examples.pubhub.model.view.BookTagView;
+import examples.pubhub.service.BookTagViewService;
 import examples.pubhub.utilities.DAOUtilities;
 
 @WebServlet("/BookTagView")
@@ -25,11 +26,9 @@ public class ViewBookTagsServlet extends HttpServlet {
 		String author = request.getParameter("author");
 		
 		// Grab the list of Book Tags from the Database
-		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
+		BookTagViewService tagViewService = DAOUtilities.getBookTagService();
 		
-		// List<BookTagView> tag = dao.getAllBookTags();		
-//		BookTagView tag = dao.getViewBookTagByISBN(isbn);
-		List<BookTagView> tagList = dao.getViewBookTagByTitle(title);
+		List<BookTagView> tagList = tagViewService.getAllBookTagViewByTitle(title);
 		BookTagView singleTag = new BookTagView();
 		
 		if (tagList.size() > 0) {
@@ -56,9 +55,10 @@ public class ViewBookTagsServlet extends HttpServlet {
 		// String isbn13 = request.getParameter("isbn13");
 		String tagName = request.getParameter("tagName");
 		
-		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
+		BookTagViewService tagViewService = DAOUtilities.getBookTagService();
+		
 		if (!tagName.isEmpty())
-			isSuccess = dao.deleteBookTagByTagName(tagName);
+			isSuccess = tagViewService.deleteBookTagByTagName(tagName);
 		
 		if (isSuccess) {
 			request.getSession().setAttribute("message", "Nook was successfully deleted");

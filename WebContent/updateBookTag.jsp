@@ -17,18 +17,18 @@
 		</c:choose>
 
 		<h1>
-			PUBHUB <small> View Book Tag - ${viewBookTags.isbn13} </small>
+			PUBHUB <small> View Book Tag - ${bookTagView.isbn13} </small>
 		</h1>
 		<hr class="book-primary">
 
 		<form action="UpdateBookTag" method="post" class="form-horizontal">
-			<input type="hidden" class="form-control" id="isbn13" name="isbn13" required="required" value="${viewBookTags.isbn13 }" />
+			<input type="hidden" class="form-control" id="isbn13" name="isbn13" required="required" value="${bookTagView.isbn13 }" />
 
 			<div class="form-group">
 				<label for="author" class="col-sm-3 control-label">Author</label>
 				<div class="col-sm-5 col-sm-offset-1">
 					<input type="text" class="form-control" id="author" name="author"
-						placeholder="author" required="required" value="${viewBookTags.author}">
+						placeholder="author" required="required" value="${bookTagView.author}">
 				</div>
 			</div>
 
@@ -36,9 +36,9 @@
 				<label for="title" class="col-sm-3 control-label">Title</label>
 				<div class="col-sm-5 col-sm-offset-1">
 					<input type="text" class="form-control" id="title" name="title"
-						placeholder="title" required="required" value="${viewBookTags.title}" />
+						placeholder="title" required="required" value="${bookTagView.title}" />
 					<input type="hidden" class="form-control" id="title" name="title" 
-						required="required" value="${viewBookTags.title }" />
+						required="required" value="${bookTagView.title }" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -46,7 +46,7 @@
 					Name:</label>
 				<div class="col-sm-5 col-sm-offset-1">
 					<input type="text" class="form-control" id="tagName" name="tagName"
-						placeholder="Tag Name" required="required" value="${viewBookTags.tagName}" />
+						placeholder="Tag Name" required="required" value="${bookTagView.tagName}" />
 				</div>
 			</div>
 			<div class="form-group">

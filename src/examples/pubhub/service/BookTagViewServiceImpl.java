@@ -24,28 +24,41 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	
 	/*------------------------------------------------------------------------------------------*/
 	
-//	@Override
-//	public BookTagView getViewBookTagByTitle(String title) {
-//		//  We need to retrieve records from BookDao and BookTagDao matching title
-//		BookTagView bookView = new BookTagView();
-//		
-//		//  Get book from BookDaoImpl
-//		Book book = bookDao.getBookByTitle(title);
-//		
-//		//  Get book_tag from BookTagDaoImpl using isbn_13
-//		BookTag bookTag = bookTagDao.getBookTagByISBN( book.getIsbn13() );
-//		
-//		//  Transfer Query results to BookTagView
-//		//  ## there may be "more than one" tag per title
-//		BookTagView bkView = entityToBookTagViewDTO(bookTag, book);
-//		
-//		return bkView;
-//	}
-//
-//	@Override
-//	public BookTagView getViewBookTagByISBN(String isbn) {
-//		return null;
-//	}
+	@Override
+	public BookTagView getBookTagViewByTitle(String title) {
+		//  We need to retrieve records from BookDao and BookTagDao matching title
+		BookTagView bookView = new BookTagView();
+		
+		//  Get book from BookDaoImpl
+		Book book = bookDao.getBookByTitle(title);
+		
+		//  Get book_tag from BookTagDaoImpl using isbn_13
+		BookTag bookTag = bookTagDao.getBookTagByISBN( book.getIsbn13() );
+		
+		//  Transfer Query results to BookTagView
+		//  ## there may be "more than one" tag per title
+		bookView = entityToBookTagViewDTO(bookTag, book);
+		
+		return bookView;
+	}
+
+	@Override
+	public BookTagView getBookTagViewByISBN(String isbn) {
+		//  We need to retrieve records from BookDao and BookTagDao matching title
+		BookTagView bookView = new BookTagView();
+		
+		//  Get book from BookDaoImpl
+		Book book = bookDao.getBookByTitle(isbn);
+		
+		//  Get book_tag from BookTagDaoImpl using isbn_13
+		BookTag bookTag = bookTagDao.getBookTagByISBN( book.getIsbn13() );
+		
+		//  Transfer Query results to BookTagView
+		//  ## there may be "more than one" tag per title
+		bookView = entityToBookTagViewDTO(bookTag, book);
+		
+		return bookView;
+	}
 	
 	//==||  Section II   ||  Retrieve List Of Record Methods
 	//==================================================\\
@@ -53,7 +66,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
-	public List<BookTagView> getAllViewBookWithTag() {
+	public List<BookTagView> getAllBookTagViewWithTag() {
 		//  We need to retrieve all books that have "has_tag == true"
 		
 		//  Get all books with "has_tag" enabled
@@ -86,7 +99,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	}
 	
 	@Override
-	public List<BookTagView> getAllViewBookTagByTitle(String title) {
+	public List<BookTagView> getAllBookTagViewByTitle(String title) {
 		// We are getting number of records according to title;
 		// ##  may have "more than" one tag per title
 		// ##  will have "one" author and "one" title per "isbn_13"
@@ -110,7 +123,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	}
 	
 	@Override
-	public List<BookTagView> getAllViewBookTagByISBN(String isbn) {
+	public List<BookTagView> getAllBookTagViewByISBN(String isbn) {
 		// We are getting number of records according to "isbn_13"
 		// ##  may have "more than" one tag per isbn_13
 		// ##  may have only "one title" per isbn_13
@@ -139,7 +152,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
-	public boolean addViewBookTag(BookTagView bookTagView) {
+	public boolean addBookTagView(BookTagView bookTagView) {
 		//  We need to add a new record to book and book tag
 		//  ##  firstly, the "isbn_13" is the primary key; therefore "book" is created first
 		//  ##  secondly, the record for "book_tag" can be created with the "isbn_13"
@@ -162,7 +175,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
-	public boolean updateViewBookTag(BookTagView bookTagView) {
+	public boolean updateBookTagView(BookTagView bookTagView) {
 		//  We need to update "one" book record && "one" book_tag record
 		boolean result = false;
 		

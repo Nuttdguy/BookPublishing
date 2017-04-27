@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import examples.pubhub.dao.BookTagDAO;
 import examples.pubhub.model.view.BookTagView;
+import examples.pubhub.service.BookTagViewService;
 import examples.pubhub.utilities.DAOUtilities;
 
 @WebServlet("/UpdateBookTag")
@@ -24,10 +25,10 @@ public class UpdateBookTagServlet extends HttpServlet {
 		String author = request.getParameter("author");
 		
 		// create connection dao instance
-		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
+		BookTagViewService tagViewService = DAOUtilities.getBookTagService();
 		
 		// call dao, get data for isbn
-		BookTagView tag = dao.getOneViewBookTagByTitle(title);
+		BookTagView tag = tagViewService.getBookTagViewByTitle(title);
 		
 		if (tag != null) {
 			tag.setAuthor(author);
@@ -36,7 +37,7 @@ public class UpdateBookTagServlet extends HttpServlet {
 		}
 		
 		// set request attribute of dispatcher
-		request.setAttribute("viewBookTags", tag);
+		request.setAttribute("bookTagView", tag);
 		
 		// get .jsp object from request dispatcher, forward request/response
 		request.getRequestDispatcher("updateBookTag.jsp").forward(request, response);
@@ -47,9 +48,8 @@ public class UpdateBookTagServlet extends HttpServlet {
 		String isbn13 = request.getParameter("isbn13");
 		String title = request.getParameter("title");
 		
-		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
-		// BookTagView tag = dao.getOneViewBookTagByTitle(title);
-		BookTagView tag = dao.getOneViewBookTagByISBN(isbn13);
+		BookTagViewService tagViewService = DAOUtilities.getBookTagService();
+		BookTagView tag = tagViewService.getBookTagViewByISBN(isbn13);
 		
 		if (tag!= null) {
 			
@@ -59,7 +59,7 @@ public class UpdateBookTagServlet extends HttpServlet {
 			tag.setTagName(request.getParameter("tagName"));
 			
 			request.setAttribute("bookTags", tag);
-			isSuccess = dao.updateViewBookTag(tag);
+			isSuccess = tagViewService.updateBookTagView(tag);
 		} else {
 			// couldn't find book with isbn. Update failed
 			tag = new BookTagView();
@@ -69,7 +69,7 @@ public class UpdateBookTagServlet extends HttpServlet {
 			tag.setTagName(request.getParameter("tagName"));
 			
 			request.setAttribute("bookTags", tag);
-			isSuccess = dao.addViewBookTag(tag);
+			isSuccess = tagViewService.addBookTagView(tag);
 		}
 		
 		if (isSuccess) {
