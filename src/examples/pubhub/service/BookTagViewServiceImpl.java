@@ -100,9 +100,21 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
-	public boolean addViewBookTag(BookTagView viewBookTag) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addViewBookTag(BookTagView bookTagView) {
+		//  We need to add a new record to book and book tag
+		//  ##  firstly, the "isbn_13" is the primary key; therefore "book" is created first
+		//  ##  secondly, the record for "book_tag" can be created with the "isbn_13"
+		
+		//  Set boolean flag to get success or failure result
+		boolean result = false;
+		
+		//  Transfer bookTagView to book object, then add book
+		result = bookDao.addBook( bookTagViewToBookDTO(bookTagView) );
+		
+		// Transfer bookTagView to bookTag object, then add book_tag
+		result = bookTagDao.addBookTag( bookTagViewToBookTagDTO(bookTagView) );
+		
+		return result;
 	}
 
 	//==||  Section IV   ||  Update Record Methods
@@ -146,4 +158,24 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 		return bkView;	
 	}
 	
+	private static Book bookTagViewToBookDTO(BookTagView bookTagView) {
+		
+		Book book = new Book();
+		book.setIsbn13( bookTagView.getIsbn13() );
+		book.setTitle( bookTagView.getTitle() );
+		book.setAuthor( bookTagView.getAuthor() );
+		book.setPublishDate( bookTagView.getPublishDate() );
+		book.setPrice( bookTagView.getPrice() );
+		book.setContent( bookTagView.getContent() );
+		book.setHasTag( true );
+		return book;
+	}
+	
+	private static BookTag bookTagViewToBookTagDTO(BookTagView bookTagView) {
+		
+		BookTag bookTag = new BookTag();
+		bookTag.setIsbn13( bookTagView.getIsbn13() );
+		bookTag.setTagName( bookTagView.getTagName() );
+		return bookTag;
+	}
 }
