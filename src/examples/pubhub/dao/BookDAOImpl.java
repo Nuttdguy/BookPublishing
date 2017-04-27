@@ -57,6 +57,38 @@ public class BookDAOImpl implements BookDAO {
 		return book;
 	}
 
+	/*------------------------------------------------------------------------------------------*/
+	
+	@Override
+	public Book getBookByTitle(String title) {
+		Book book = null;
+
+		try {
+			connection = DAOUtilities.getConnection();
+			String sql = "SELECT * FROM Books WHERE title = ?";
+			stmt = connection.prepareStatement(sql);
+			
+			stmt.setString(1, title);		
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				book = new Book();
+				book.setIsbn13(rs.getString("isbn_13"));
+				book.setAuthor(rs.getString("author"));
+				book.setTitle(rs.getString("title"));
+				book.setPublishDate(rs.getDate("publish_date").toLocalDate());
+				book.setPrice(rs.getDouble("price"));
+				book.setContent(rs.getBytes("content"));			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources();
+		}
+		
+		return book;
+	}
 
 	//==||  Section II   ||  Retrieve List Of Record Methods
 	//==================================================\\

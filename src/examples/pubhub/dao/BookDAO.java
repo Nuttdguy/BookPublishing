@@ -11,6 +11,7 @@ public interface BookDAO {
 	
 	// Retrieve Single Result
 	public Book getBookByISBN(String isbn);  //  review completed 04-25
+	public Book getBookByTitle(String title);  //  added 04-26
 
 	// Retrieve List of Results
 	public List<Book> getAllBooks();  //  review completed 04-25
