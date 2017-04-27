@@ -16,8 +16,8 @@ import examples.pubhub.utilities.DAOUtilities;
 public class BookTagViewServiceImpl implements BookTagViewService {
 	
 	//==||  Define DAO instance variables
-	BookDAO bookDao;
-	BookTagDAO bookTagDao;
+	BookDAO bookDao = new BookDAOImpl();
+	BookTagDAO bookTagDao = new BookTagDAOImpl();
 	
 	//==||  Section I   ||  Retrieve Single Record Methods
 	//==================================================\\
@@ -89,7 +89,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 			String isbn = book.getIsbn13();
 			for (BookTag tag : tagList) {
 				//  if isbn_13 == current tag isbn_13, transfer data 
-				if (isbn == tag.getIsbn13() ) {
+				if (isbn.equals( tag.getIsbn13() ) ) {
 					// if true, transfer current data and add to "bookTagView" list
 					tagViewList.add( entityToBookTagViewDTO(tag, book) );
 				}
@@ -219,6 +219,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 		bkView.setIsbn13( book.getIsbn13() );
 		bkView.setTagName( tag.getTagName() );
 		bkView.setBookTagId( tag.getBookTagId() );
+		bkView.setPublishDate( book.getPublishDate() );
 		
 		return bkView;	
 	}

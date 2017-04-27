@@ -18,7 +18,7 @@ public class DAOUtilities {
 
 	private static final String CONNECTION_USERNAME = "pubhub_user";
 	private static final String CONNECTION_PASSWORD = "pubhub_password";
-	private static final String URL = "jdbc:postgresql://localhost:5432/PubHub";
+	private static final String URL = "jdbc:postgresql://localhost:5432/pubhub";
 	private static Connection connection;
 	
 	public static synchronized Connection getConnection() throws SQLException {

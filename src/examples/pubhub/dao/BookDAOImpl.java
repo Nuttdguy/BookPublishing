@@ -157,11 +157,11 @@ public class BookDAOImpl implements BookDAO {
 		try {
 			connection = DAOUtilities.getConnection();
 			String sql = "SELECT a.*,"
-					+ "b.* "
-					+ "FROM books a "
-					+ "INNER JOIN book_tag b"
-					+ "ON a.isbn_13 = b.isbn_13"
-					+ "WHERE a.has_tag = true"; 
+					+ " b.* "
+					+ " FROM books a "
+					+ " INNER JOIN book_tag b"
+					+ " ON a.isbn_13 = b.isbn_13"
+					+ " WHERE a.has_tag = true"; 
 			stmt = connection.prepareStatement(sql); 
 			
 			ResultSet rs = stmt.executeQuery();
