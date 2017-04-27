@@ -6,9 +6,9 @@ import examples.pubhub.model.view.BookTagView;
 
 public interface BookTagViewService {
 
-	// Retrieve Single Results
-	public BookTagView getViewBookTagByTitle(String title);
-	public BookTagView getViewBookTagByISBN(String isbn);
+	// Retrieve Single Results, << should always return as List
+//	public BookTagView getViewBookTagByTitle(String title);
+//	public BookTagView getViewBookTagByISBN(String isbn);
 	
 	// Retrieve List of Results
 	public List<BookTagView> getAllViewBookTagByISBN(String isbn);

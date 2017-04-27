@@ -24,22 +24,28 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	
 	/*------------------------------------------------------------------------------------------*/
 	
-	@Override
-	public BookTagView getViewBookTagByTitle(String title) {
-		BookTagView bookView = new BookTagView();
-		
-		// Get book from BookDaoImpl
-		
-		// Get book_tag from BookTagDaoImpl
-		
-		return null;
-	}
-
-	@Override
-	public BookTagView getViewBookTagByISBN(String isbn) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public BookTagView getViewBookTagByTitle(String title) {
+//		//  We need to retrieve records from BookDao and BookTagDao matching title
+//		BookTagView bookView = new BookTagView();
+//		
+//		//  Get book from BookDaoImpl
+//		Book book = bookDao.getBookByTitle(title);
+//		
+//		//  Get book_tag from BookTagDaoImpl using isbn_13
+//		BookTag bookTag = bookTagDao.getBookTagByISBN( book.getIsbn13() );
+//		
+//		//  Transfer Query results to BookTagView
+//		//  ## there may be "more than one" tag per title
+//		BookTagView bkView = entityToBookTagViewDTO(bookTag, book);
+//		
+//		return bkView;
+//	}
+//
+//	@Override
+//	public BookTagView getViewBookTagByISBN(String isbn) {
+//		return null;
+//	}
 	
 	//==||  Section II   ||  Retrieve List Of Record Methods
 	//==================================================\\
@@ -64,7 +70,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 		//  Set Query Results to BookTagView
 		for (BookTag tag : tagList) {
 			// For each book tag, add result to bookTagView list
-			bookTagViewList.add( EntityDTO( tag, book) );
+			bookTagViewList.add( entityToBookTagViewDTO( tag, book) );
 		}
 		
 		return bookTagViewList;
@@ -88,7 +94,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 		
 		for (BookTag tag : tagList) {
 			//  For each book tag, add result to bookTagViewList
-			bookTagViewList.add( EntityDTO(tag, book) );
+			bookTagViewList.add( entityToBookTagViewDTO(tag, book) );
 		}
 		
 		return bookTagViewList;
@@ -123,9 +129,17 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
-	public boolean updateViewBookTag(BookTagView viewBookTag) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateViewBookTag(BookTagView bookTagView) {
+		//  We need to update "one" book record && "one" book_tag record
+		boolean result = false;
+		
+		//  Transfer "bookTagView" data to "book", update record that matches isbn_13
+		result = bookDao.updateBook( bookTagViewToBookDTO(bookTagView) );
+		
+		//  Transfer "bookTagView" data to "book_tag", update record that matches isbn_13
+		result = bookTagDao.updateBookTag( bookTagViewToBookTagDTO(bookTagView) );
+		
+		return result;
 	}
 
 	//==||  Section V   ||  Delete Record Methods
@@ -135,8 +149,13 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	
 	@Override
 	public boolean deleteBookTagByTagName(String tagName) {
-		// TODO Auto-generated method stub
-		return false;
+		//  We need to single "tag" delete record from book_tag
+		boolean result = false;
+		
+		//  Utilize BookTagDAOImpl to delete record from book_tag
+		result = bookTagDao.deleteBookTagByTagName(tagName);
+		
+		return result;
 	}
 	
 	//==||  Section VI   ||  Misc. Methods
@@ -144,7 +163,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 		
 	/*------------------------------------------------------------------------------------------*/
 	
-	private static BookTagView EntityDTO(BookTag tag, Book book) {
+	private static BookTagView entityToBookTagViewDTO(BookTag tag, Book book) {
 		//  Initialize new BookTagView
 		BookTagView bkView = new BookTagView();
 		
