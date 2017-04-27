@@ -53,6 +53,39 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
+	public List<BookTagView> getAllViewBookWithTag() {
+		//  We need to retrieve all books that have "has_tag == true"
+		
+		//  Get all books with "has_tag" enabled
+		//  # important columns are "isbn_13, title, and author"
+		List<Book> bookList = bookDao.getAllBookWithTag();
+		
+		//  Get all tags from "book_tag"
+		//  # there may be "more than" one tag per "isbn_13"
+		//  # we want to create a new "BookTagView" object for each tag
+		//  # AND then add object to bookTagView list
+		List<BookTag> tagList = bookTagDao.getAllBookTag();
+		
+		//  Initialize List of BookTagView to transfer Query results
+		List<BookTagView> tagViewList = new ArrayList<>();
+		
+		//  Sort book tags, match with "isbn_13"
+		//  Firstly, get the number of "unique isbn_13" size for loop
+		//  AND then the number of "tag_names" for that isbn_13.
+		for (Book book : bookList) {
+			String isbn = book.getIsbn13();
+			for (BookTag tag : tagList) {
+				//  if isbn_13 == current tag isbn_13, transfer data 
+				if (isbn == tag.getIsbn13() ) {
+					// if true, transfer current data and add to "bookTagView" list
+					tagViewList.add( entityToBookTagViewDTO(tag, book) );
+				}
+			}
+		}
+		return tagViewList;
+	}
+	
+	@Override
 	public List<BookTagView> getAllViewBookTagByTitle(String title) {
 		// We are getting number of records according to title;
 		// ##  may have "more than" one tag per title

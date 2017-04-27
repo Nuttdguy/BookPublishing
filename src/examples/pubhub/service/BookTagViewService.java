@@ -11,6 +11,7 @@ public interface BookTagViewService {
 //	public BookTagView getViewBookTagByISBN(String isbn);
 	
 	// Retrieve List of Results
+	public List<BookTagView> getAllViewBookWithTag(); // books have "has_tag" flag enabled by default
 	public List<BookTagView> getAllViewBookTagByISBN(String isbn);
 	public List<BookTagView> getAllViewBookTagByTitle(String title);
 	

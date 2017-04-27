@@ -8,6 +8,8 @@ import examples.pubhub.dao.BookDAO;
 import examples.pubhub.dao.BookDAOImpl;
 import examples.pubhub.dao.BookTagDAO;
 import examples.pubhub.dao.BookTagDAOImpl;
+import examples.pubhub.service.BookTagViewService;
+import examples.pubhub.service.BookTagViewServiceImpl;
 
 /**
  * Class used to retrieve DAO Implementations. Serves as a factory. Also manages a single instance of the database connection.
@@ -45,5 +47,8 @@ public class DAOUtilities {
 	public static BookTagDAO getBookTagsDAO() {
 		return new BookTagDAOImpl();
 	}
-
+	
+	public static BookTagViewService getBookTagService() {
+		return new BookTagViewServiceImpl();
+	}
 }
