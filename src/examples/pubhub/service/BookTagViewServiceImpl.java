@@ -210,12 +210,12 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
-	public boolean deleteBookTagByTagName(String tagName) {
+	public boolean deleteBookTagByBookTagId(String tagId) {
 		//  We need to single "tag" delete record from book_tag
 		boolean result = false;
 		
 		//  Utilize BookTagDAOImpl to delete record from book_tag
-		result = bookTagDao.deleteBookTagByTagName(tagName);
+		result = bookTagDao.deleteBookTagByBookTagId(tagId);
 		
 		return result;
 	}

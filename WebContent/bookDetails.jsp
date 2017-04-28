@@ -49,7 +49,7 @@
 				<label for="price" class="col-sm-4 control-label">Price</label>
 				<div class="col-sm-5">
 					<input type="number" step="0.01" class="form-control" id="price"
-						name="price" placeholder="Price" required="required"
+						name="price" pattern="(d{3})([.])(d{2})" placeholder="Price" required="required"
 						value="${book.price }" />
 				</div>
 			</div>

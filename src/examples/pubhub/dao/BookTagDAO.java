@@ -27,6 +27,7 @@ public interface BookTagDAO {
 	public boolean updateBookTag(BookTag bookTag);  // rework completed 04-25
 	
 	// Delete Record
-	public boolean deleteBookTagByTagName(String tagName);  // rework completed 04-25
+	public boolean deleteBookTagByBookTagId(String tagId);  // rework completed 04-28
+	public boolean deleteBookTagByTagName(String tagName); //  review completed 04-25
 
 }

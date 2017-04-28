@@ -53,23 +53,25 @@ public class ViewBookTagsServlet extends HttpServlet {
 	}	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean isSuccess = false;
-		// String isbn13 = request.getParameter("isbn13");
-		String tagName = request.getParameter("tagName");
 		
-		BookTagViewService tagViewService = DAOUtilities.getBookTagService();
+		// Get the book tag ID
+		String tagId = request.getParameter("tagId");
+		String title = request.getParameter("title");
 		
-		if (!tagName.isEmpty())
-			isSuccess = tagViewService.deleteBookTagByTagName(tagName);
+		// Create an instance of book tag DAO
+		BookTagDAO dao = DAOUtilities.getBookTagsDAO();
+		
+		// Delete record
+		boolean isSuccess = dao.deleteBookTagByBookTagId(tagId);
 		
 		if (isSuccess) {
-			request.getSession().setAttribute("message", "Nook was successfully deleted");
+			request.getSession().setAttribute("message", "Tag successfully deleted");
 			request.getSession().setAttribute("messageClass", "alert-success");
 			response.sendRedirect("BookPublishing");
 		} else {
-			request.getSession().setAttribute("message", "There was a problem deleting the tag");
+			request.getSession().setAttribute("message", "Tag has been deleted to book");
 			request.getSession().setAttribute("messageClass", "alert-danger");
-			request.getRequestDispatcher("bookPublishingHome.jsp").forward(request, response);
+			request.getRequestDispatcher("viewBookTags.jsp").forward(request, response);
 		}
 		
 	}

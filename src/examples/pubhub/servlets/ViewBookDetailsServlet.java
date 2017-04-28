@@ -1,6 +1,7 @@
 package examples.pubhub.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,12 +22,10 @@ import examples.pubhub.utilities.DAOUtilities;
 public class ViewBookDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		// The bookDetails.jsp page needs to have the details of the selected book saved to the request,
 		// Otherwise it won't know what details to display. Ergo, we need to fetch those details before we
 		// Actually redirect the user.
@@ -40,8 +39,26 @@ public class ViewBookDetailsServlet extends HttpServlet {
 		// We can use a forward here, because if a user wants to refresh their browser on this page,
 		// it will just show them the most recent details for their book. There's no risk of data
 		// miss-handling here.
-		request.getRequestDispatcher("bookDetails.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("bookDetails.jsp").forward(request, response);		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

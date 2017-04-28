@@ -40,8 +40,7 @@
 			<tbody>
 				<c:forEach var="book" items="${books}">
 					<tr>
-						<td><c:out value="${book.isbn13}" /></td>
-						
+						<td><c:out value="${book.isbn13}" /></td>						
 						<td><c:out value="${book.title}" /></td>
 						<td><c:out value="${book.author}" /></td>
 						<td><c:out value="${book.publishDate}" /></td>

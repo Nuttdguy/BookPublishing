@@ -24,6 +24,6 @@ public interface BookTagViewService {
 	public boolean updateBookTagView(BookTagView bookTagView);
 	
 	// Delete Record
-	public boolean deleteBookTagByTagName(String tagName);												
+	public boolean deleteBookTagByBookTagId(String tagId);												
 	
 }

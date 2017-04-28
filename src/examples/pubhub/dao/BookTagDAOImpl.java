@@ -358,6 +358,29 @@ public class BookTagDAOImpl implements BookTagDAO {
 	/*------------------------------------------------------------------------------------------*/
 
 	@Override
+	public boolean deleteBookTagByBookTagId(String tagId) {
+
+		try {
+			connection = DAOUtilities.getConnection();
+			String sql = "DELETE FROM book_tag WHERE book_tag_id = ?";
+			stmt = connection.prepareStatement(sql);
+
+			stmt.setInt(1,Integer.valueOf( tagId) );
+
+			if (stmt.executeUpdate() != 0) {
+				return true;
+			} else
+				return false;
+		} catch (SQLException sex) {
+			sex.printStackTrace();
+			return false;
+		} finally {
+			closeResources();
+		}
+
+	}
+	
+	@Override
 	public boolean deleteBookTagByTagName(String tagName) {
 
 		try {
@@ -377,7 +400,6 @@ public class BookTagDAOImpl implements BookTagDAO {
 		} finally {
 			closeResources();
 		}
-
 	}
 
 	//==||  Section VI   ||  Close Resource Methods

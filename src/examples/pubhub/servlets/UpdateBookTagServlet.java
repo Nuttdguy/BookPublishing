@@ -80,7 +80,7 @@ public class UpdateBookTagServlet extends HttpServlet {
 		if (isSuccess) {
 			request.getSession().setAttribute("message", "Book successfully updated");
 			request.getSession().setAttribute("messageClass", "alert-success");
-			response.sendRedirect("BookTagView?title=" + title);
+			response.sendRedirect("BookPublishing");
 		} else {
 			request.getSession().setAttribute("message", "Tag has been added to book");
 			request.getSession().setAttribute("messageClass", "alert-danger");

@@ -47,10 +47,11 @@
 							<button class="btn btn-primary">Edit</button>
 						</form></td>
 						<!--  TODO :: ADD DELETE -->
-						<td><form action="ViewBookTags?title=${tag.title}" method="post">
+						<td><form action="BookTagView" method="post">
 							<input type="hidden" name="isbn13" value="${tag.isbn13}"/>
 							<input type="hidden" name="title" value="${tag.title}">
 							<input type="hidden" name="tagName" value="${tag.tagName}">
+							<input type="hidden" name="tagId" value="${tag.bookTagId}">
 							<button class="btn btn-danger">Delete</button>
 						</form>
 					</tr>
