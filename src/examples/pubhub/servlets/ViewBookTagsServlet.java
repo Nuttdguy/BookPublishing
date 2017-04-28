@@ -24,10 +24,12 @@ public class ViewBookTagsServlet extends HttpServlet {
 		String isbn = request.getParameter("isbn13");
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
+		String tag = request.getParameter("tagName");
 		
 		// Grab the list of Book Tags from the Database
 		BookTagViewService tagViewService = DAOUtilities.getBookTagService();
 		
+		//  Pending "tag_name"; not being shown on viewing all book tags;
 		List<BookTagView> tagList = tagViewService.getAllBookTagViewByTitle(title);
 		BookTagView singleTag = new BookTagView();
 		
@@ -36,7 +38,7 @@ public class ViewBookTagsServlet extends HttpServlet {
 		} else {
 			singleTag.setAuthor(author);
 			singleTag.setTitle(title);
-			singleTag.setTagName("");
+			singleTag.setTagName(tag);
 			singleTag.setIsbn13(isbn);
 			tagList.add(singleTag);
 		}

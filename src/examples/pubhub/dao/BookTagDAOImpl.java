@@ -30,7 +30,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 			String sql = "SELECT a.isbn_13,"
 					+ "a.title,"
 					+ "a.author,"
-					+ "b.* FROM books a INNER JOIN book_tags b ON a.isbn_13 = b.isbn_13 WHERE a.title = ?";
+					+ "b.* FROM books a INNER JOIN book_tag b ON a.isbn_13 = b.isbn_13 WHERE a.title = ?";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, title);		
@@ -62,7 +62,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "SELECT * FROM book_tags WHERE isbn_13 = ?";
+			String sql = "SELECT * FROM book_tag WHERE isbn_13 = ?";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, isbn);
@@ -71,7 +71,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 			if (rs.next()) {
 				tag = new BookTag();
 				
-				tag.setBookTagId(rs.getInt("booktags_id"));
+				tag.setBookTagId(rs.getInt("booktag_id"));
 				tag.setIsbn13(rs.getString("isbn_13"));
 				tag.setTagName(rs.getString("tag_name"));
 			}
@@ -174,7 +174,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 			String sql = "SELECT a.isbn_13,"
 					+ "a.title,"
 					+ "a.author,"
-					+ "b.tag_name FROM books a INNER JOIN book_tags b ON a.isbn_13 = b.isbn_13 "
+					+ "b.tag_name FROM books a INNER JOIN book_tag b ON a.isbn_13 = b.isbn_13 "
 					+ "WHERE a.title = ?;";
 			stmt = connection.prepareStatement(sql);
 			
@@ -208,7 +208,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "SELECT * FROM book_tags WHERE tag_name LIKE ?";
+			String sql = "SELECT * FROM book_tag WHERE tag_name LIKE ?";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, "%" + bookTag + "%");
@@ -242,7 +242,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "INSERT INTO book_tags (isbn_13, tag_name) VALUES (?, ?)";
+			String sql = "INSERT INTO book_tag (isbn_13, tag_name) VALUES (?, ?)";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, bookTag.getIsbn13());
@@ -272,7 +272,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "UPDATE book_tags SET tag_name=? WHERE isbn_13=?";
+			String sql = "UPDATE book_tag SET tag_name=? WHERE isbn_13=?";
 			stmt = connection.prepareStatement(sql);
 
 			stmt.setString(1, bookTag.getTagName());
@@ -301,7 +301,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "DELETE FROM book_tags WHERE tag_name = ?";
+			String sql = "DELETE FROM book_tag WHERE tag_name = ?";
 			stmt = connection.prepareStatement(sql);
 
 			stmt.setString(1, tagName);

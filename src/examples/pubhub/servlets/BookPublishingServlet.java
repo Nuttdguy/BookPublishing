@@ -21,6 +21,10 @@ import examples.pubhub.utilities.DAOUtilities;
 public class BookPublishingServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	
+	// TODO tag is not being shown on tag list view; possibly the data is not being set once retrieved from database
+	// TODO review all tag functionality
+	// TODO review/check that book publishing home can search for book tags by tag_name !Important
 
 	//==| verified data returned correctly from database
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
