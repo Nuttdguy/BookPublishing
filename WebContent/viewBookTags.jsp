@@ -43,6 +43,7 @@
 							<input type="hidden" name="isbn13" value="${tag.isbn13}"/>
 							<input type="hidden" name="title" value="${tag.title}">
 							<input type="hidden" name="author" value="${tag.author}">
+							<input type="hidden" name="tagName" value="${tag.tagName}">
 							<button class="btn btn-primary">Edit</button>
 						</form></td>
 						<!--  TODO :: ADD DELETE -->

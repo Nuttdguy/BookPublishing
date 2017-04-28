@@ -25,6 +25,22 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	/*------------------------------------------------------------------------------------------*/
 	
 	@Override
+	public BookTagView getBookTagViewByBookTagId(String tagId) {
+		BookTag bookTag = bookTagDao.getBookTagByBookTagId(tagId);
+		Book book = bookDao.getBookByISBN( bookTag.getIsbn13() );
+		return entityToBookTagViewDTO(bookTag, book);
+	}
+	
+	@Override
+	public BookTagView getBookTagViewByTagName(String tagName) {
+		
+		BookTag bookTag = bookTagDao.getBookTagByTagName(tagName);		
+		Book book = bookDao.getBookByISBN( bookTag.getIsbn13() );
+		
+		return entityToBookTagViewDTO(bookTag, book);
+	}
+	
+	@Override
 	public BookTagView getBookTagViewByTitle(String title) {
 		//  We need to retrieve records from BookDao and BookTagDao matching title
 		BookTagView bookView = new BookTagView();
@@ -48,7 +64,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 		BookTagView bookView = new BookTagView();
 		
 		//  Get book from BookDaoImpl
-		Book book = bookDao.getBookByTitle(isbn);
+		Book book = bookDao.getBookByISBN(isbn);
 		
 		//  Get book_tag from BookTagDaoImpl using isbn_13
 		BookTag bookTag = bookTagDao.getBookTagByISBN( book.getIsbn13() );
@@ -241,6 +257,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 	private static BookTag bookTagViewToBookTagDTO(BookTagView bookTagView) {
 		
 		BookTag bookTag = new BookTag();
+		bookTag.setBookTagId( bookTagView.getBookTagId() );
 		bookTag.setIsbn13( bookTagView.getIsbn13() );
 		bookTag.setTagName( bookTagView.getTagName() );
 		return bookTag;

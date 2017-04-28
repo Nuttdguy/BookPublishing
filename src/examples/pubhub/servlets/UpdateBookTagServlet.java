@@ -23,12 +23,14 @@ public class UpdateBookTagServlet extends HttpServlet {
 		String isbn = request.getParameter("isbn13");
 		String title = request.getParameter("title");
 		String author = request.getParameter("author");
+		String tagName = request.getParameter("tagName");
 		
 		// create connection dao instance
 		BookTagViewService tagViewService = DAOUtilities.getBookTagService();
 		
 		// call dao, get data for isbn
-		BookTagView tag = tagViewService.getBookTagViewByTitle(title);
+		BookTagView tag = tagViewService.getBookTagViewByTagName(tagName);
+		// BookTagView tag = tagViewService.getBookTagViewByTitle(title);
 		
 		if (tag != null) {
 			tag.setAuthor(author);
@@ -47,9 +49,12 @@ public class UpdateBookTagServlet extends HttpServlet {
 		boolean isSuccess = false;
 		String isbn13 = request.getParameter("isbn13");
 		String title = request.getParameter("title");
+		String tagId = request.getParameter("bookTagId");
+		//String tagName = request.getParameter("tagName");
 		
 		BookTagViewService tagViewService = DAOUtilities.getBookTagService();
-		BookTagView tag = tagViewService.getBookTagViewByISBN(isbn13);
+		BookTagView tag = tagViewService.getBookTagViewByBookTagId(tagId);
+		// BookTagView tag = tagViewService.getBookTagViewByTitle(title);
 		
 		if (tag!= null) {
 			

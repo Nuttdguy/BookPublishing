@@ -7,6 +7,8 @@ import examples.pubhub.model.view.BookTagView;
 public interface BookTagViewService {
 
 	// Retrieve Single Results, << should always return as List
+	public BookTagView getBookTagViewByBookTagId(String tagId);	
+	public BookTagView getBookTagViewByTagName(String tagName);		
 	public BookTagView getBookTagViewByTitle(String title);
 	public BookTagView getBookTagViewByISBN(String isbn);
 	
@@ -22,6 +24,6 @@ public interface BookTagViewService {
 	public boolean updateBookTagView(BookTagView bookTagView);
 	
 	// Delete Record
-	public boolean deleteBookTagByTagName(String tagName);														
+	public boolean deleteBookTagByTagName(String tagName);												
 	
 }

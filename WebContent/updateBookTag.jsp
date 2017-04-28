@@ -23,6 +23,7 @@
 
 		<form action="UpdateBookTag" method="post" class="form-horizontal">
 			<input type="hidden" class="form-control" id="isbn13" name="isbn13" required="required" value="${bookTagView.isbn13 }" />
+			<input type="hidden" class="form-control" id="bookTagId" name="bookTagId" required="required" value="${bookTagView.bookTagId }" />
 
 			<div class="form-group">
 				<label for="author" class="col-sm-3 control-label">Author</label>

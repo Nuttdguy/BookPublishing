@@ -157,11 +157,9 @@ public class BookDAOImpl implements BookDAO {
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "SELECT a.*,"
-					+ " b.* "
+			String sql = "SELECT DISTINCT ON (a.title) "
+					+ " a.* "
 					+ " FROM books a "
-					+ " INNER JOIN book_tag b"
-					+ " ON a.isbn_13 = b.isbn_13"
 					+ " WHERE a.has_tag = true"; 
 			stmt = connection.prepareStatement(sql); 
 			
@@ -364,7 +362,7 @@ public class BookDAOImpl implements BookDAO {
 	public boolean updateBook(Book book) {
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "UPDATE Books SET title=?, author=?, price=? WHERE isbn_13=?";
+			String sql = "UPDATE books SET title=?, author=?, price=? WHERE isbn_13=?";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, book.getTitle());

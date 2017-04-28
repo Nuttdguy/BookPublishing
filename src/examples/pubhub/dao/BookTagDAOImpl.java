@@ -20,6 +20,64 @@ public class BookTagDAOImpl implements BookTagDAO {
 	//==================================================\\
 	
 	/*------------------------------------------------------------------------------------------*/
+	
+	@Override
+	public BookTag getBookTagByBookTagId(String tagId) {
+		BookTag bookTag = null;
+		
+		try {
+			connection = DAOUtilities.getConnection();
+			String sql = "SELECT * FROM book_tag WHERE book_tag_id = ?";
+			stmt = connection.prepareStatement(sql);
+			
+			stmt.setInt(1, Integer.valueOf(tagId) );
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next() ) {
+				bookTag = new BookTag();
+				bookTag.setTagName(rs.getString("tag_name"));
+				bookTag.setIsbn13(rs.getString("isbn_13"));
+				bookTag.setBookTagId(rs.getInt("book_tag_id"));
+			}
+			rs.close();
+		} catch (SQLException sex) {
+			sex.printStackTrace();
+		} finally {
+			closeResources();
+		}
+		return bookTag;
+	}
+	
+	@Override
+	public BookTag getBookTagByTagName(String tagName) {
+		BookTag bookTag =  null;
+		
+		try {
+			connection = DAOUtilities.getConnection();
+			String sql = "SELECT * FROM book_tag WHERE tag_name = ?";
+			stmt = connection.prepareStatement(sql);
+			
+			stmt.setString(1, tagName);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next() ) {
+				bookTag =  new BookTag();
+				
+				bookTag.setTagName(rs.getString("tag_name"));
+				bookTag.setIsbn13(rs.getString("isbn_13"));
+				bookTag.setBookTagId(rs.getInt("book_tag_id"));
+			}
+			
+			rs.close();
+		} catch (SQLException sex) {
+			sex.printStackTrace();
+		} finally {
+			closeResources();
+		}
+		
+		return bookTag;
+	}
+	
 	@Override
 	public BookTag getBookTagByTitle(String title) {
 		
@@ -172,10 +230,13 @@ public class BookTagDAOImpl implements BookTagDAO {
 		try {
 			connection = DAOUtilities.getConnection();
 			String sql = "SELECT a.isbn_13,"
-					+ "a.title,"
-					+ "a.author,"
-					+ "b.tag_name FROM books a INNER JOIN book_tag b ON a.isbn_13 = b.isbn_13 "
-					+ "WHERE a.title = ?;";
+					+ " a.title,"
+					+ " a.author,"
+					+ " b.tag_name, "
+					+ " b.book_tag_id "
+					+ " FROM books a "
+					+ " INNER JOIN book_tag b ON b.isbn_13 = a.isbn_13 "
+					+ " WHERE a.title = ?;";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, title );
@@ -202,7 +263,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 	/*------------------------------------------------------------------------------------------------*/
 
 	@Override
-	public List<BookTag> getAllBookTagByTagName(String bookTag) {
+	public List<BookTag> getAllBookTagByTagName(String tagName) {
 
 		List<BookTag> tagList = new ArrayList<>();
 		
@@ -211,7 +272,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 			String sql = "SELECT * FROM book_tag WHERE tag_name LIKE ?";
 			stmt = connection.prepareStatement(sql);
 			
-			stmt.setString(1, "%" + bookTag + "%");
+			stmt.setString(1, "%" + tagName + "%");
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
@@ -272,11 +333,11 @@ public class BookTagDAOImpl implements BookTagDAO {
 
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "UPDATE book_tag SET tag_name=? WHERE isbn_13=?";
+			String sql = "UPDATE book_tag SET tag_name=? WHERE book_tag_id =?";
 			stmt = connection.prepareStatement(sql);
 
 			stmt.setString(1, bookTag.getTagName());
-			stmt.setString(2, bookTag.getIsbn13());
+			stmt.setInt(2, bookTag.getBookTagId());
 
 			if (stmt.executeUpdate() != 0)
 				return true;

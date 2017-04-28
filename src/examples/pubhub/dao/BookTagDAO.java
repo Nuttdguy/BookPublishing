@@ -9,6 +9,8 @@ import examples.pubhub.model.view.BookTagView;
 public interface BookTagDAO {
 	
 	// Retrieve Single Results
+	public BookTag getBookTagByBookTagId(String tagId);  // added 04-28
+	public BookTag getBookTagByTagName(String tagName);  // added 04-28
 	public BookTag getBookTagByTitle(String title);  // rework completed 04-25
 	public BookTag getBookTagByISBN(String isbn);  // rework completed 04-25 
 	

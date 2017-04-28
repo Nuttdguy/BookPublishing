@@ -22,7 +22,10 @@ public class BookPublishingServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	// TODO tag is not being shown on tag list view; possibly the data is not being set once retrieved from database
+	// TODO (Corrected 04-28) tag is not being shown on tag list view; possibly the data is not being set once retrieved from database
+	// TODO (Corrected 04-28) BUG -- Book Publishing Home View is showing many of the Same Records
+	// TODO (Corrected 04-28) BUG -- Update view displaying incorrect tag, not getting back correct data
+	// TODO (Corrected 04-28) Update is returning error, does not work -- need to capture by book_tag_id
 	// TODO review all tag functionality
 	// TODO review/check that book publishing home can search for book tags by tag_name !Important
 
