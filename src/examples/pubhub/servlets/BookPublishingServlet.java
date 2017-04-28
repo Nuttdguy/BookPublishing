@@ -22,11 +22,8 @@ public class BookPublishingServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
+	//==| verified data returned correctly from database
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// Grab the list of Books from the Database
-		// BookDAO dao = DAOUtilities.getBookDAO();
-		// List<BookTagView> bookList = dao.getAllBooksWithTag();
 		
 		BookTagViewService bkTagService = DAOUtilities.getBookTagService();
 		List<BookTagView> bookList = bkTagService.getAllBookTagViewWithTag();

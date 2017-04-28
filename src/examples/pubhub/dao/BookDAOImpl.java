@@ -1,5 +1,6 @@
 package examples.pubhub.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -321,20 +322,22 @@ public class BookDAOImpl implements BookDAO {
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "INSERT INTO Books (isbn_13, title, author, publish_date, price, content) VALUES (?, ?, ?, ?, ?, ?);"
-					+ "INSERT INTO book_tags (isbn_13, tag_name) VALUES (?, ?);"; // Were using a lot of ?'s here...
+			String sql = "INSERT INTO books (isbn_13, title, author, publish_date, price, has_tag, content) VALUES (?, ?, ?, ?, ?, ?, ?);"
+					+ "INSERT INTO book_tag (isbn_13, tag_name) VALUES (?, ?);"; // Were using a lot of ?'s here...
 			stmt = connection.prepareStatement(sql);
 			
 			// But that's okay, we can set them all before we execute
 			stmt.setString(1, book.getIsbn13());
 			stmt.setString(2, book.getTitle());
 			stmt.setString(3, book.getAuthor());
-			stmt.setDate(4, Date.valueOf(book.getPublishDate()));
-			stmt.setDouble(5, book.getPrice());
+			stmt.setDate(4, Date.valueOf( book.getPublishDate() ) );
+		
+			stmt.setDouble( 5, book.getPrice() );		
+			stmt.setBoolean(6, book.getHasTag() );
+			stmt.setBytes(7, book.getContent());
 			
-			stmt.setBytes(6, book.getContent());
-			stmt.setString(7, book.getIsbn13());
-			stmt.setString(8, " ");
+			stmt.setString(8, book.getIsbn13());
+			stmt.setString(9, " ");
 			
 			// If we were able to add our book to the DB, we want to return true. 
 			// This if statement both executes our query, and looks at the return 

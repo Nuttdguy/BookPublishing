@@ -78,6 +78,14 @@ public class BookTagView {
 		this.book.setPrice(price);
 	}
 	
+	public void setHasTag() {
+		this.book.setHasTag(true);
+	}
+	
+	public boolean getHasTag() {
+		return this.book.getHasTag();
+	}
+	
 	public byte[] getContent() {
 		return book.getContent();
 	}

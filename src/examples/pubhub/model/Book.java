@@ -12,9 +12,7 @@ public class Book {
 	private LocalDate publishDate;	// Date of publish to the website
 	private boolean hasTag;
 	private List<BookTag> bookTags;
-	
 	private double price;
-	
 	private byte[] content;
 
 	// Constructor used when no date is specified
@@ -96,7 +94,7 @@ public class Book {
 		this.content = content;
 	}
 
-	public boolean isHasTag() {
+	public boolean getHasTag() {
 		return hasTag;
 	}
 

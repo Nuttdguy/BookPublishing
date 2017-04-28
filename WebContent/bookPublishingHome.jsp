@@ -45,7 +45,7 @@
 						<td><c:out value="${book.title}" /></td>
 						<td><c:out value="${book.author}" /></td>
 						<td><c:out value="${book.publishDate}" /></td>
-						<td><fmt:formatNumber value="${book.price }" type="CURRENCY"/></td>
+						<td><fmt:formatNumber value="${book.price }" type="currency"/></td>
 <%-- 						<td><c:out value="${book.tagName}" /></td> --%>
 						<td><form action="DownloadBook" method="get">
 								<input type="hidden" name="isbn13" value="${book.isbn13}">

@@ -217,6 +217,7 @@ public class BookTagViewServiceImpl implements BookTagViewService {
 		bkView.setAuthor( book.getAuthor() );
 		bkView.setTitle( book.getTitle() );
 		bkView.setIsbn13( book.getIsbn13() );
+		bkView.setPrice( book.getPrice() );
 		bkView.setTagName( tag.getTagName() );
 		bkView.setBookTagId( tag.getBookTagId() );
 		bkView.setPublishDate( book.getPublishDate() );

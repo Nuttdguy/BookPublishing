@@ -31,47 +31,47 @@ public class PublishBookServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String isbn13 = req.getParameter("isbn13");
-
-		BookDAO database = DAOUtilities.getBookDAO();
-		Book tempBook = database.getBookByISBN(isbn13);
+		
+		//  Required in order to verify that book doesn't already exist
+		BookDAO bookDao = DAOUtilities.getBookDAO();
+		Book tempBook = bookDao.getBookByISBN(isbn13);
 		
 		if (tempBook != null) {
-			// ASSERT: book with isbn already exists
-
+			// If book already exists, redirect to publishBook.jsp
+			
 			req.getSession().setAttribute("message", "ISBN of " + isbn13 + " is already in use");
 			req.getSession().setAttribute("messageClass", "alert-danger");
 			req.getRequestDispatcher("publishBook.jsp").forward(req, resp);
-
+			
 		} else {
-
+			//  Book does not exist, therefore create object to transfer input data into java object
 			Book book = new Book();
 			book.setIsbn13(req.getParameter("isbn13"));
 			book.setTitle(req.getParameter("title"));
 			book.setAuthor(req.getParameter("author"));
 			book.setPublishDate(LocalDate.now());
-			book.setPrice(Double.parseDouble(req.getParameter("price")));
+			
+			double price = Double.parseDouble( req.getParameter("price") );
+			book.setPrice( price );
 
 			// Uploading a file requires the data to be sent in "parts", because
 			// one HTTP packet might not be big
 			// enough anymore for all of the data. Here we get the part that has
 			// the file data
 			Part content = req.getPart("content");
-
 			InputStream is = null;
 			ByteArrayOutputStream os = null;
-
+			
 			try {
 				is = content.getInputStream();
 				os = new ByteArrayOutputStream();
-
 				byte[] buffer = new byte[1024];
-
+				
 				while (is.read(buffer) != -1) {
 					os.write(buffer);
-				}
-				
+				}				
 				book.setContent(os.toByteArray());
-
+				
 			} catch (IOException e) {
 				System.out.println("Could not upload file!");
 				e.printStackTrace();
@@ -81,8 +81,8 @@ public class PublishBookServlet extends HttpServlet {
 				if (os != null)
 					os.close();
 			}
-
-			boolean isSuccess = database.addBook(book);
+			
+			boolean isSuccess = bookDao.addBook(book);
 			
 			if(isSuccess){
 				req.getSession().setAttribute("message", "Book successfully published");
