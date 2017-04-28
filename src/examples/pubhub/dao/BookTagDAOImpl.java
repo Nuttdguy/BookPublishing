@@ -71,7 +71,7 @@ public class BookTagDAOImpl implements BookTagDAO {
 			if (rs.next()) {
 				tag = new BookTag();
 				
-				tag.setBookTagId(rs.getInt("booktag_id"));
+				tag.setBookTagId(rs.getInt("book_tag_id"));
 				tag.setIsbn13(rs.getString("isbn_13"));
 				tag.setTagName(rs.getString("tag_name"));
 			}
