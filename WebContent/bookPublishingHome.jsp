@@ -55,7 +55,7 @@
 								<input type="hidden" name="isbn13" value="${book.isbn13}">
 								<button class="btn btn-primary">Details</button>
 							</form></td>
-						<td><form action="ViewBookTags?title=${book.title}" method="get">
+						<td><form action="BookTagView?title=${book.title}" method="get">
 								<input type="hidden" name="isbn13" value="${book.isbn13}">
 								<input type="hidden" name="title" value="${book.title}">
 								<input type="hidden" name="author" value="${book.author}">

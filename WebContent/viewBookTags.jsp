@@ -34,7 +34,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="tag" items="${ViewBookTags}">
+				<c:forEach var="tag" items="${BookTagView}">
 					<tr>
 						<td><c:out value="${tag.title}" /></td>
 						<td><c:out value="${tag.author}" /></td>

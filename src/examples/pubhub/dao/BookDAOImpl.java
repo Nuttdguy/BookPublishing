@@ -172,7 +172,7 @@ public class BookDAOImpl implements BookDAO {
 				
 				// Handle Date to LocalDate conversion
 				Date date = rs.getDate("publish_date");
-				book.setPublishDate(  date.toLocalDate() );
+				book.setPublishDate( date.toLocalDate() );
 				
 				book.setAuthor(rs.getString("author"));
 				book.setTitle(rs.getString("title"));
